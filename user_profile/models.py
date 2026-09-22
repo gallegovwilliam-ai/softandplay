@@ -44,6 +44,8 @@ def assure_user_profile_exists(pk):
     return
 
 def create_user_profile(**kwargs):
-    UserProfile.objects.get_or_create(user=kwargs['user'])
+    user = kwargs.get('user')
+    if user:
+        UserProfile.objects.get_or_create(user=user)
 
 user_registered.connect(create_user_profile)
