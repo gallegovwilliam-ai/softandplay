@@ -6,7 +6,7 @@ from django.dispatch import Signal
 import datetime
 from django.utils import timezone
 # A new user has registered.exit
-user_registered = Signal(providing_args=["user", "request"])
+user_registered = Signal()
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, unique=True, on_delete = models.CASCADE)
