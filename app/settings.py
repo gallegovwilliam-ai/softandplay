@@ -211,8 +211,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.environ.get('STATIC_ROOT', os.path.join(BASE_DIR, 'static_files'))
 STORAGES = {
     'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
-    'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage'},
-}
+    'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage'}
 #STATIC_ROOT = '/opt/softandplay/static_files/'
 
 #MEDIA_ROOT = '/opt/softandplay/media_files'
