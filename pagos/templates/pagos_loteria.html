@@ -1,0 +1,183 @@
+{% extends 'dashboard.html' %}
+ {% load static %}
+ {% load humanize %}
+{% block css %}
+	  <!--dynamic table-->
+    <link href="{% static 'assets/advanced-datatable/media/css/demo_page.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/advanced-datatable/media/css/demo_table.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'assets/data-tables/DT_bootstrap.css' %}" />
+{% endblock css %}
+
+{% block main %}
+              <div class="row">
+                <div class="col-sm-12">
+              <section class="card">
+              <header class="card-header">
+                  Pagos Pendietes Loteria Mexicana
+             <span class="tools pull-right">
+                <a href="javascript:;" class="fa fa-chevron-down"></a>
+                <a href="javascript:;" class="fa fa-times"></a>
+             </span>
+              </header>
+              <div class="card-body">
+              <div class="adv-table">
+              <table  class="display table table-bordered table-striped table-responsive" id="dynamic-table">
+              <thead>
+              <tr>
+                  <th>Usuario</th>
+                  <th>Tabla</th>
+                  <th>figuras</th>
+                  <th>Monto</th>
+                  <th>Partida</th>
+                  <th>Fecha</th>
+                  <th>Acción</th>
+                  
+              </tr>
+              </thead>
+              <tbody>
+                {% for p in object_list  %}
+                  <tr>
+                  <td {% ifequal p.propietario.user.userprofile.user_type "Revendedor" %} style="color:blue" {% endifequal %}>
+                    {{ p.propietario.user.username }}</td>
+                  <td>{{ p.pk }}</td>
+                  <td>
+                    {% if p.ganador_1 %} Linea al Alazar <br> {% endif %}
+                    {% if p.ganador_2 %} Primera Linea Vertical <br> {% endif %}
+                    {% if p.ganador_3 %} Segunda Linea Vertica <br>{% endif %}
+                    {% if p.ganador_4 %} Tercera Linea Vertical <br>{% endif %}
+                    {% if p.ganador_5 %} Cuarta Linea Vertical <br>{% endif %}
+                    {% if p.ganador_6 %} Primera Linea Horizontal <br> {% endif %}
+                    {% if p.ganador_7 %} Segunda Linea Horizontal <br>{% endif %}
+                    {% if p.ganador_8 %} Tercera Linea Horizontal <br> {% endif %}
+                    {% if p.ganador_9 %} Cuarta Linea Horizontal <br>{% endif %}
+                    {% if p.ganador_10 %} Tabla Llena {% endif %}
+                  </td>
+                  <td>{{ p.monto }}</td>
+                  <td>{{ p.propietario.partida.pk }}</td>
+                  <td>{{ p.propietario.partida.fecha }}</td>
+                  <td class="td-actions text-right" width="120px">
+                      <a type="button" rel="tooltip" class="btn btn-info" href="{% url 'ver-carton-ganador' pk=p.id %}">
+                          <i class="fa fa-eye"></i>
+                      </a>
+                   
+                  </td>
+                </tr>
+                  {% empty%}
+                  <tr>
+                    <td>No hay Registros</td> 
+                    <td>.</td>
+                    <td>.</td>
+                    <td>.</td>                   
+                    <td>.</td>
+                    <td>.</td>
+                    <td>.</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+              </table>
+              </div>
+              </div>
+              </section>
+              </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+              <section class="card">
+              <header class="card-header">
+                  Pagos Pendietes Bingo 75
+             <span class="tools pull-right">
+                <a href="javascript:;" class="fa fa-chevron-down"></a>
+                <a href="javascript:;" class="fa fa-times"></a>
+             </span>
+              </header>
+              <div class="card-body">
+              <div class="adv-table">
+              <table  class="display table table-bordered table-striped table-responsive" id="dynamic-table1">
+              <thead>
+              <tr>
+                  <th>Usuario</th>
+                  <th>Tabla</th>
+                  <th>figuras</th>
+                  <th>Monto</th>
+                  <th>Partida</th>
+                  <th>Fecha</th>
+                  <th>Acción</th>
+                  
+              </tr>
+              </thead>
+              <tbody>
+                {% for p in bingo  %}
+                  <tr>
+                  <td {% ifequal p.propietario.user.userprofile.user_type "Revendedor" %} style="color:blue" {% endifequal %}>
+                    {{ p.propietario.user.username }}</td>
+                  <td>{{ p.pk }}</td>
+                  <td>
+                    {% if p.ganador_1 %} Linea B <br> {% endif %}
+                    {% if p.ganador_2 %} Linea I <br> {% endif %}
+                    {% if p.ganador_3 %} Linea N <br>{% endif %}
+                    {% if p.ganador_4 %} Linea G <br>{% endif %}
+                    {% if p.ganador_5 %} Linea O <br>{% endif %}
+                    {% if p.ganador_6 %} La X <br> {% endif %}
+                    {% if p.ganador_7 %} LA CRUZ <br>{% endif %}
+                    {% if p.ganador_8 %} La C <br> {% endif %}
+                    {% if p.ganador_9 %} La S <br>{% endif %}
+                    {% if p.ganador_10 %} Tabla Llena {% endif %}
+                  </td>
+                  <td>{{ p.monto }}</td>
+                  <td>{{ p.propietario.partida.pk }}</td>
+                  <td>{{ p.propietario.partida.fecha }}</td>
+                  <td class="td-actions text-right" width="120px">
+                      <a type="button" rel="tooltip" class="btn btn-info" href="{% url 'ver-carton-ganador75' pk=p.id %}">
+                          <i class="fa fa-eye"></i>
+                      </a>
+
+
+                  </td>
+                </tr>
+                  {% empty%}
+                  <tr>
+                    <td>No hay Registros</td> 
+                    <td>.</td>
+                    <td>.</td>
+                    <td>.</td>                   
+                    <td>.</td>
+                    <td>.</td>
+                    <td>.</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+              </table>
+              </div>
+              </div>
+              </section>
+              </div>
+              </div>
+
+
+              {% endblock %}
+
+{% block js %}
+	   <script type="text/javascript" language="javascript" src="{% static 'assets/advanced-datatable/media/js/jquery.dataTables.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/data-tables/DT_bootstrap.js' %}"></script>
+    <script src="{% static 'js/respond.min.js' %}" ></script>
+    <!--dynamic table initialization -->
+    <script src="{% static 'js/dynamic_table_init.js' %}"></script>
+    <script>
+    function deleteCliente(pk, name) {
+      
+      option = confirm("Estas seguro de eliminar a " + name);
+      if (option){ window.location = "{% url 'delete-cliente' 1234 %}".replace(/1234/, pk.toString()); }
+    }
+
+    $( document ).ready(function() {
+      console.log( "ready!" );
+      $('#dynamic-table_length').hide();
+      $('#dynamic-table1').dataTable( {
+        "aaSorting": [[ 4, "desc" ]]
+    } );
+    $('#dynamic-table1_length').hide();
+
+    });    
+  </script>
+{% endblock js %}

@@ -1,0 +1,27 @@
+{% load static %}
+{% load thumbnail %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>{{config.titulo}}</title>
+	<link rel="stylesheet" href="{% static "css/tablero.css" %}">
+</head>
+<body>
+
+<center>
+	{% thumbnail user.userprofile.sala.thumb "200x200" crop="center" as im %}
+    	<a href="/"><img src="{{ im.url }}" style="border-radius:50%"></a>
+    {% endthumbnail %} 
+    <h1>NO HAY CARTONES VENDIDOS</h1>
+
+</center>
+
+<center>
+		<button id="crear" onclick="javascript:location.href='/cartones/vender/';void(0);">VENDER</button>	
+</center>
+
+
+
+</body>
+</html>

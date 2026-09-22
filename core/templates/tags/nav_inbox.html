@@ -1,0 +1,36 @@
+{% load static %}
+{% load humanize %}
+
+                  <!-- inbox dropdown start-->
+                  <li id="header_inbox_bar" class="dropdown">
+                      <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                          <i class="fa fa-envelope-o"></i>
+                          <span class="badge badge-danger" id="count_message">{{ count_message }}</span>
+                      </a>
+                      <ul class="dropdown-menu extended inbox" id="ul_messages" style="max-height:450px">
+                          <div class="notify-arrow notify-arrow-red"></div>
+                          <li>
+                              <p class="red" id="message_messages">Tienes {{ count_message }} nuevos mensajes</p>
+                          </li>
+                          <div id="new_message"></div>
+                          {% for m in messages %}
+                            <li>
+                                <a href="/messages/">
+                                    <span class="photo"><img alt="avatar" src="/media/{{m.message.user_emiter.userprofile.thumb}}"></span>
+                                    <span class="subject">
+                                      <span class="from">{{ m.message.user_emiter.username}}</span>
+                                      <span class="time"><small>{{ m.message.created_at|naturaltime }}</small></span>
+                                      </span>
+                                    <span class="message">
+                                          {{ m.message.message }}
+                                      </span>
+                                </a>
+                            </li>                              
+                          {% endfor %}
+
+                          <li>
+                              <a href="/messages/">Ver todos los mensajes</a>
+                          </li>
+                      </ul>
+                  </li>
+                  <!-- inbox dropdown end -->

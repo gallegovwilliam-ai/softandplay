@@ -1,0 +1,358 @@
+{% load static %}
+<style type="text/css">
+	
+	.carton-n {
+	-webkit-transform:rotateZ(0deg);
+	-moz-transform:rotateZ(0deg);
+	-o-transform:rotateZ(0deg);
+	transform:rotateZ(0deg);
+	margin-top:-65px !important;
+	margin:0px auto;zoom:0.93;
+	}
+
+	.carton-n2 {
+	-webkit-transform:rotateZ(0deg);
+	-moz-transform:rotateZ(0deg);
+	-o-transform:rotateZ(0deg);
+	transform:rotateZ(0deg);
+	margin-top: 35px !important;
+	margin:0px auto;zoom:0.93;
+	}
+
+	.carton-n2 {
+	margin:0px auto;
+	width:300px;
+	height:360px;
+	-webkit-background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	-o-background-size: 100% 100%;
+	background-size: 100% 100%;
+	}
+	
+	.texto-carton {
+	font: bold 28px 'Arial';
+	background:transparent;
+	color:#222222;
+	margin-top:7px;
+	text-align:center;
+	-webkit-text-shadow: 0px 0px 2px #ffffff;
+	-moz-text-shadow: 0px 0px 2px #ffffff;
+	-o-text-shadow: 0px 0px 2px #ffffff;
+	text-shadow: 0px 0px 2px #ffffff;
+	}
+	
+	.texto-carton2 {
+	font: bold 14px 'Arial';
+	background:transparent;
+	color:#222222;
+	margin-top:7px;
+	text-align:center;
+	-webkit-text-shadow: 0px 0px 3px #ffffff;
+	-moz-text-shadow: 0px 0px 3px #ffffff;
+	-o-text-shadow: 0px 0px 3px #ffffff;
+	text-shadow: 0px 0px 3px #ffffff;
+	}
+	
+	.logo-carton2 {
+	position:relative;
+	left:42.566666666666666666666666666667%;
+	top:-71.2%;
+	width:15%;
+	height:10.9%;
+	background:transparent;
+	overflow:hidden;
+	background-image:url('medida. 2.png');
+	-webkit-background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	-o-background-size: 100% 100%;
+	background-size: 100% 100%;
+	}
+	
+	.INFO-CARTON {
+	margin:0px auto;
+	background:rgb(247,245,252);
+	border:2px dotted rgb(195,195,195);
+	text-align:center;
+	font:bold 1.2em 'Arial';
+	color:rgb(127,127,127);
+	position:absolute;
+	left:0px;
+	top:-26px;
+	width:99%;
+	}
+	
+	.LOGO-INFO {
+	margin:0px auto;
+	background:transparent;
+	height:120px;
+	overflow:hidden;
+	}
+	
+	.LOGO-INFO-DIV {
+	margin:0px auto;
+	width:85%;
+	border-bottom:1px dotted rgb(195,195,195);
+	}
+</style>
+<div style="width: 100%;text-align: center;">
+	<h1 style="color: black;font-weight: bold;">{{figura}}</h1><br>	
+	<div style="width: 100%;display: flex;justify-content: center;align-content: center;flex-wrap: wrap;">
+	{% for carton in  cartones%}
+	<div class="carton-n2">
+		<div id="carton-n2" style="position:relative;left:0px;top:0px;width:100%;height:100%;text-align:left;">
+		<img id="CARTON" src="/media/{{ config.fondo_carton_bingo }}" style="position:absolute;left:0px;top:0px;width:100%;height:100%;">
+		<div id="ct0" style="position: absolute; width: 15.3333%; height: 11.1905%; background: transparent; overflow: hidden; left: 10.3333%; top: 35.9524%;">
+			<div class="texto-carton" name="Num{{carton.carton.l1_1}}" 
+			{% if  carton.carton.l1_1 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l1_1 }}</div>
+		</div>
+		<div id="ct1" style="position: absolute; width: 15%; height: 11.1905%; background: transparent; overflow: hidden; left: 26.6667%; top: 35.9524%;">
+			<div class="texto-carton" name="Num{{carton.carton.l2_1}}" 
+			{% if  carton.carton.l2_1 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l2_1 }}</div>
+		</div>
+		<div id="ct2" style="position: absolute; width: 15%; height: 11.1905%; background: transparent; overflow: hidden; left: 42.6667%; top: 35.9524%;">
+			<div class="texto-carton" name="Num{{carton.carton.l3_1}}" 
+			{% if  carton.carton.l3_1 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l3_1 }}</div>
+		</div>
+		<div id="ct3" style="position: absolute; width: 15.3333%; height: 11.1905%; background: transparent; overflow: hidden; left: 58.3333%; top: 35.9524%;">
+			<div class="texto-carton" name="Num{{carton.carton.l4_1}}" 
+			{% if  carton.carton.l4_1 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l4_1 }}</div>
+		</div>
+		<div id="ct4" style="position: absolute; width: 15.3333%; height: 11.1905%; background: transparent; overflow: hidden; left: 74.3333%; top: 35.9524%;">
+			<div class="texto-carton" name="Num{{carton.carton.l5_1}}" 
+			{% if  carton.carton.l5_1 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l5_1 }}</div>
+		</div>
+		<div id="ct5" style="position: absolute; width: 15.3333%; height: 10.9524%; background: transparent; overflow: hidden; left: 10.3333%; top: 47.8571%;">
+			<div class="texto-carton" name="Num{{carton.carton.l1_2}}" 
+			{% if  carton.carton.l1_2 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l1_2 }}</div>
+		</div>
+		<div id="ct6" style="position: absolute; width: 15.3333%; height: 10.9524%; background: transparent; overflow: hidden; left: 26.3333%; top: 47.8571%;">
+			<div class="texto-carton" name="Num{{carton.carton.l2_2}}" 
+			{% if  carton.carton.l2_2 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l2_2 }}</div>
+		</div>
+		<div id="ct7" style="position: absolute; width: 15.3333%; height: 10.9524%; background: transparent; overflow: hidden; left: 42.3333%; top: 47.8571%;">
+			<div class="texto-carton" name="Num{{carton.carton.l3_2}}" 
+			{% if  carton.carton.l3_2 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l3_2 }}</div>
+		</div>
+		<div id="ct8" style="position: absolute; width: 15.3333%; height: 10.9524%; background: transparent; overflow: hidden; left: 58.3333%; top: 47.8571%;">
+			<div class="texto-carton" name="Num{{carton.carton.l4_2}}" 
+			{% if  carton.carton.l4_2 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l4_2 }}</div>
+		</div>
+		<div id="ct9" style="position: absolute; width: 15.3333%; height: 10.9524%; background: transparent; overflow: hidden; left: 74.3333%; top: 47.8571%;">
+			<div class="texto-carton" name="Num{{carton.carton.l5_2}}" 
+			{% if  carton.carton.l5_2 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l5_2 }}</div>
+		</div>
+		<div id="ct10" style="position: absolute; width: 15%; height: 10.9524%; background: transparent; overflow: hidden; left: 10.6667%; top: 59.5238%;">
+			<div class="texto-carton" name="Num{{carton.carton.l1_3}}" 
+			{% if  carton.carton.l1_3 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l1_3 }}</div>
+		</div>
+		<div id="ct11" style="position: absolute; width: 15.3333%; height: 10.9524%; background: transparent; overflow: hidden; left: 26.3333%; top: 59.5238%;">
+			<div class="texto-carton" name="Num{{carton.carton.l2_3}}" 
+			{% if  carton.carton.l2_3 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l2_3 }}</div>
+		</div>
+		<div id="ct12" style="position: absolute; width: 15.3333%; height: 10.9524%; background: transparent; overflow: hidden; left: 42.3333%; top: 59.5238%;">
+			<div class="texto-carton"></div>
+		</div>
+		<div id="ct13" style="position: absolute; width: 15.3333%; height: 10.9524%; background: transparent; overflow: hidden; left: 58.3333%; top: 59.5238%;">
+			<div class="texto-carton" name="Num{{carton.carton.l4_3}}" 
+			{% if  carton.carton.l4_3 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l4_3 }}</div>
+		</div>
+		<div id="ct14" style="position: absolute; width: 15.3333%; height: 10.9524%; background: transparent; overflow: hidden; left: 74.3333%; top: 59.5238%;">
+			<div class="texto-carton" name="Num{{carton.carton.l5_3}}" 
+			{% if  carton.carton.l5_3 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l5_3 }}</div>
+		</div>
+		<div id="ct15" style="position: absolute; width: 15%; height: 11.1905%; background: transparent; overflow: hidden; left: 10.6667%; top: 71.1905%;">
+			<div class="texto-carton" name="Num{{carton.carton.l1_4}}" 
+			{% if  carton.carton.l1_4 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l1_4 }}</div>
+		</div>
+		<div id="ct16" style="position: absolute; width: 15.3333%; height: 11.1905%; background: transparent; overflow: hidden; left: 26.3333%; top: 71.1905%;">
+			<div class="texto-carton" name="Num{{carton.carton.l2_4}}" 
+			{% if  carton.carton.l2_4 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l2_4 }}</div>
+		</div>
+		<div id="ct17" style="position: absolute; width: 15.3333%; height: 11.1905%; background: transparent; overflow: hidden; left: 42.3333%; top: 71.1905%;">
+			<div class="texto-carton" name="Num{{carton.carton.l3_4}}" 
+			{% if  carton.carton.l3_4 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l3_4 }}</div>
+		</div>
+		<div id="ct18" style="position: absolute; width: 15.3333%; height: 11.1905%; background: transparent; overflow: hidden; left: 58.3333%; top: 71.1905%;">
+			<div class="texto-carton" name="Num{{carton.carton.l4_4}}" 
+			{% if  carton.carton.l4_4 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l4_4 }}</div>
+		</div>
+		<div id="ct19" style="position: absolute; width: 15.3333%; height: 11.1905%; background: transparent; overflow: hidden; left: 74.3333%; top: 71.1905%;">
+			<div class="texto-carton" name="Num{{carton.carton.l5_4}}" 
+			{% if  carton.carton.l5_4 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l5_4 }}</div>
+		</div>
+		<div id="ct20" style="position: absolute; width: 15%; height: 11.1905%; background: transparent; overflow: hidden; left: 10.6667%; top: 82.8571%;">
+			<div class="texto-carton" name="Num{{carton.carton.l1_5}}" 
+			{% if  carton.carton.l1_5 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l1_5 }}</div>
+		</div>
+		<div id="ct21" style="position: absolute; width: 15.3333%; height: 11.1905%; background: transparent; overflow: hidden; left: 26.3333%; top: 82.8571%;">
+			<div class="texto-carton" name="Num{{carton.carton.l2_5}}" 
+			{% if  carton.carton.l2_5 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l2_5 }}</div>
+		</div>
+		<div id="ct22" style="position: absolute; width: 15.3333%; height: 11.1905%; background: transparent; overflow: hidden; left: 42.3333%; top: 82.8571%;">
+			<div class="texto-carton" name="Num{{carton.carton.l3_5}}" 
+			{% if  carton.carton.l3_5 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l3_5 }}</div>
+		</div>
+		<div id="ct23" style="position: absolute; width: 15.3333%; height: 11.1905%; background: transparent; overflow: hidden; left: 58.3333%; top: 82.8571%;">
+			<div class="texto-carton" name="Num{{carton.carton.l4_5}}" 
+			{% if  carton.carton.l4_5 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l4_5 }}</div>
+		</div>
+		<div id="ct24" style="position: absolute; width: 15.3333%; height: 11.1905%; background: transparent; overflow: hidden; left: 74.3333%; top: 82.8571%;">
+			<div class="texto-carton" name="Num{{carton.carton.l5_5}}" 
+			{% if  carton.carton.l5_5 in jugadas %}
+				style="color:red"
+			{% endif %}>{{ carton.carton.l5_5 }}</div>
+		</div>
+		</div>
+		<div class="INFO-CARTON">
+			TABLA: {{carton.pk}} | FECHA:{{carton.propietario.partida.fecha|date:"d/m/y" }}
+		</div>
+	</div>
+
+
+	{% empty %}
+		<h3>No Encontrado</h3>
+	{% endfor %}	
+</div>	
+</div>
+		{% if figura == "Linea B" %}
+		<script>
+
+			for(i=0;i<document.getElementsByName("b1").length; i++){
+				document.getElementsByName("b1")[i].style.color='red';
+			}
+			for(i=0;i<document.getElementsByName("b2").length; i++){
+				document.getElementsByName("b2")[i].style.color='red';
+			}
+			for(i=0;i<document.getElementsByName("b3").length; i++){
+				document.getElementsByName("b3")[i].style.color='red';
+			}
+			for(i=0;i<document.getElementsByName("b4").length; i++){
+				document.getElementsByName("b4")[i].style.color='red';
+			}
+			for(i=0;i<document.getElementsByName("b5").length; i++){
+				document.getElementsByName("b5")[i].style.color='red';
+			}
+		</script>
+		{% endif %}
+		{% if figura == "Linea I" %}
+		<script>
+
+			for(i=0;i<document.getElementsByName("i1").length; i++){
+				document.getElementsByName("i1")[i].style.color='red';
+			}
+			for(i=0;i<document.getElementsByName("i2").length; i++){
+				document.getElementsByName("i2")[i].style.color='red';
+			}
+			for(i=0;i<document.getElementsByName("i3").length; i++){
+				document.getElementsByName("i3")[i].style.color='red';
+			}
+			for(i=0;i<document.getElementsByName("i4").length; i++){
+				document.getElementsByName("i4")[i].style.color='red';
+			}
+			for(i=0;i<document.getElementsByName("i5").length; i++){
+				document.getElementsByName("i5")[i].style.color='red';
+			}
+		</script>
+		{% endif %}		
+		{% if figura == "Linea N" %}
+		<script>
+
+			for(i=0;i<document.getElementsByName("n1").length; i++){
+				document.getElementsByName("n1")[i].style.color='red';
+			}
+			for(i=0;i<document.getElementsByName("n2").length; i++){
+				document.getElementsByName("n2")[i].style.color='red';
+			}
+			for(i=0;i<document.getElementsByName("n4").length; i++){
+				document.getElementsByName("n4")[i].style.color='red';
+			}
+			for(i=0;i<document.getElementsByName("n5").length; i++){
+				document.getElementsByName("n5")[i].style.color='red';
+			}
+		</script>
+		{% endif %}		
+		{% if figura == "Linea G" %}
+		<script>
+			for(i=0;i<document.getElementsByName("g1").length; i++){
+				document.getElementsByName("g1")[i].style.color='red';
+			}
+			for(i=0;i<document.getElementsByName("g2").length; i++){
+				document.getElementsByName("g2")[i].style.color='red';
+			}
+			for(i=0;i<document.getElementsByName("g3").length; i++){
+				document.getElementsByName("g3")[i].style.color='red';
+			}
+			for(i=0;i<document.getElementsByName("g4").length; i++){
+				document.getElementsByName("g4")[i].style.color='red';
+			}
+			for(i=0;i<document.getElementsByName("g5").length; i++){
+				document.getElementsByName("g5")[i].style.color='red';
+			}
+		</script>
+		{% endif %}		
+		{% if figura == "Linea O" %}
+		<script>
+
+			for(i=0;i<document.getElementsByName("o1").length; i++){
+				document.getElementsByName("o1")[i].style.color='red';
+			}
+			for(i=0;i<document.getElementsByName("o2").length; i++){
+				document.getElementsByName("o2")[i].style.color='red';
+			}
+			for(i=0;i<document.getElementsByName("o3").length; i++){
+				document.getElementsByName("o3")[i].style.color='red';
+			}
+			for(i=0;i<document.getElementsByName("o4").length; i++){
+				document.getElementsByName("o4")[i].style.color='red';
+			}
+			for(i=0;i<document.getElementsByName("o5").length; i++){
+				document.getElementsByName("o5")[i].style.color='red';
+			}
+		</script>
+		{% endif %}		

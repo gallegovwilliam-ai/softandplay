@@ -1,0 +1,52 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+{% load humanize %}
+{% load thumbnail %}
+
+{% block css %}
+{% endblock css %}
+
+{% block main %}
+              <div class="row">
+                <div class="col-md-12">
+              <section class="card">
+              <header class="card-header">
+                  Solicitud Pendiente
+             <span class="tools pull-right">
+                <a href="javascript:;" class="fa fa-chevron-down"></a>
+                <a href="javascript:;" class="fa fa-times"></a>
+             </span>
+              </header>
+              <div class="card-body" style="box-sizing:border-box">                     
+                      <img src="/media/{{userprofile.thumb}}">
+                    <br><br>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <h5>Usuario: {{ userprofile.user.username}}</h5>
+                        <h5>Nombre: {{ userprofile.user.get_full_name}}</h5>
+                      </div>                        
+                      <div class="col-sm-4">
+                        <h5>Estado: {{ userprofile.state}}</h5>
+                        <h5>ciudad: {{ userprofile.city }}</h5>
+                      </div>    
+                      <div class="col-sm-4">
+                        <h5>Telefóno: {{ userprofile.phone}}</h5>
+                        <h5>Email: {{ userprofile.user.email}}</h5>
+                      </div>                         
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <a class="btn btn-warning" href="{% url 'aprobar' pk=userprofile.pk %}">APROBAR</a>
+                        <a class="btn btn-primary" href="{% url 'pendiente-list' %}">REGRESAR</a>
+                      </div>
+                    </div>    
+              </div>
+              </section>
+              </div>
+              </div>
+{% endblock %}
+
+{% block js %}
+
+{% endblock js %}

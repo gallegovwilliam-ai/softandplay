@@ -1,0 +1,73 @@
+# SoftAndPlay - demostracion gratuita de 7 dias en Render
+# Web + PostgreSQL + Redis/Key Value. No usar para dinero real.
+services:
+  - type: web
+    name: softandplay-demo
+    runtime: docker
+    plan: free
+    region: ohio
+    dockerfilePath: ./deploy/Dockerfile
+    dockerCommand: >-
+      sh -c "python manage.py migrate --noinput &&
+      python manage.py collectstatic --noinput &&
+      python manage.py shell -c \"from django.contrib.auth import get_user_model; import os; U=get_user_model(); u=os.environ.get('DEMO_ADMIN_USERNAME'); e=os.environ.get('DEMO_ADMIN_EMAIL'); p=os.environ.get('DEMO_ADMIN_PASSWORD');\nassert (not p) or (u and e), 'DEMO_ADMIN_USERNAME y DEMO_ADMIN_EMAIL son obligatorios si se define DEMO_ADMIN_PASSWORD';\n\n\n(u and p and (lambda x: (setattr(x,'email',e), setattr(x,'is_staff',True), setattr(x,'is_superuser',True), setattr(x,'is_active',True), x.set_password(p), x.save()) if x else U.objects.create_superuser(u,e,p))(U.objects.filter(username=u).first()));\n\" && daphne -b 0.0.0.0 -p $PORT app.asgi:application"
+    envVars:
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_ALLOWED_HOSTS
+        fromService:
+          name: softandplay-demo
+          type: web
+          envVarKey: RENDER_EXTERNAL_HOSTNAME
+      - key: DATABASE_URL
+        fromDatabase:
+          name: softandplay-demo-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          name: softandplay-demo-redis
+          type: keyvalue
+          property: connectionString
+      - key: CSRF_TRUSTED_ORIGINS
+        value: "https://*.onrender.com"
+      - key: CORS_ALLOWED_ORIGINS
+        value: ""
+      - key: DJANGO_TIME_ZONE
+        value: "America/Bogota"
+      - key: DJANGO_LANGUAGE_CODE
+        value: "es-co"
+      - key: SOFTANDPLAY_STRICT_CONFIG
+        value: "False"
+      - key: SECURE_SSL_REDIRECT
+        value: "True"
+      - key: DEMO_ADMIN_USERNAME
+        sync: false
+      - key: DEMO_ADMIN_EMAIL
+        sync: false
+      - key: DEMO_ADMIN_PASSWORD
+        sync: false
+      - key: EMAIL_HOST
+        value: ""
+      - key: EMAIL_HOST_USER
+        value: ""
+      - key: EMAIL_HOST_PASSWORD
+        value: ""
+      - key: DEFAULT_FROM_EMAIL
+        value: "demo@softandplay.local"
+    healthCheckPath: /
+
+  - type: keyvalue
+    name: softandplay-demo-redis
+    plan: free
+    region: ohio
+    ipAllowList: []
+    maxmemoryPolicy: allkeys-lru
+
+databases:
+  - name: softandplay-demo-db
+    plan: free
+    region: ohio
+    postgresMajorVersion: "17"
+

@@ -1,0 +1,144 @@
+{% load static %}
+{% load i18n %}
+
+{% load thumbnail %}
+
+<!DOCTYPE html>
+<html lang="es">
+<!-- Head -->
+
+<head>
+    <title>{{config.titulo}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'login/css/style.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'login/css/font-awesome.min.css' %}" type="text/css" media="all">
+
+    <style>
+
+      body {
+          font-family: 'Mukta', sans-serif;
+          background: url("/media/{{config.fondo_login_desktop}}") no-repeat center center fixed;    
+          background-size: cover;
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          -ms-background-size: cover;
+        position: relative;
+          height: 100vh;
+      }
+   </style>
+   <meta description="asasa">
+</head>
+<!-- //Head -->
+<!-- Body -->
+
+<body>
+
+<section class="main" style="margin-top:-20px">
+  <div class="layer">
+    
+    <div class="bottom-grid">
+      <div class="logo">
+        <h1> <a href="/">{{config.titulo}}</a></h1>
+      </div>
+   
+    </div>
+    <div class="content-w3ls">
+      <div class="text-center icon">
+        <img src="/media/{{config.logo}}" width="220px">
+      </div>
+      <div class="content-bottom">
+
+       <form id="form">
+          {%csrf_token%}
+          <div class="field-group">
+            <span class="fa fa-user" aria-hidden="true"></span>
+            <div class="wthree-field">
+              <input name="username" id="username" type="text" value="" placeholder="Username" required>
+            </div>
+          </div>
+          <div class="field-group">
+            <span class="fa fa-user" aria-hidden="true"></span>
+            <div class="wthree-field">
+              <input name="nombre" id="nombre" type="text" value="" placeholder="Nombre Completo" required>
+            </div>
+          </div>          
+          <div class="field-group">
+            <span class="fa fa-envelope" aria-hidden="true"></span>
+            <div class="wthree-field">
+              <input name="email" id="email" type="email" value="" placeholder="Email" required>
+            </div>
+          </div>          
+          <div class="field-group">
+            <span class="fa fa-phone" aria-hidden="true"></span>
+            <div class="wthree-field">
+              <input name="telefono" id="telefono" type="text" value="" placeholder="Teléfono" required>
+            </div>
+          </div>
+          <div class="field-group">
+            <span class="fa fa-lock" aria-hidden="true"></span>
+            <div class="wthree-field">
+              <input name="password" id="password" type="Password" placeholder="Password">
+            </div>
+          </div>
+          <div class="wthree-field">
+            <div id="error" style="text-align:center;color:#fff"></div>
+            <button type="submit" class="btn">Crear Cuenta</button>
+          </div>
+
+
+        </form>
+      </div>
+    </div>
+    <div class="bottom-grid1">
+      
+      <div class="copyright">
+        <p>© 2019 multibingos.net. All rights reserved | Design by
+          <a href="http://developgraph.com">DevelopGraph</a>
+        </p>
+      </div>
+    </div>
+    </div>
+</section>
+    <script src="{% static 'js/jquery.js' %}"></script>
+
+
+<script type="text/javascript">
+
+  $('#form').submit(function(){
+          var formData = new FormData();
+          formData.append('username',$('#username').val());
+          formData.append('email',$('#email').val());
+          formData.append('password',$('#password').val());
+          formData.append('telefono',$('#telefono').val());
+          formData.append('nombre',$('#nombre').val());
+          formData.append('csrfmiddlewaretoken', $("input[name='csrfmiddlewaretoken']").val());
+           $.ajax({
+                    type: "POST",
+                    url: "{% url 'register-form' %}",
+                    data: formData, // serializes the form's elements.
+                    enctype: 'multipart/form-data',         
+                    processData: false,  // tell jQuery not to process the data
+                    contentType: false,  // tell jQuery not to set contentType           
+                    success: function(data)
+                   {
+                      if(data=='errorUsername'){
+                          $('#error').html("Nombre de usuario registrado").show();
+
+                       }else if(data=='errorEmail'){
+                          $('#error').html("Email registrado").show();
+                       }else{
+                          location.href='/';
+                       }                     
+                   }
+                 });
+                event.preventDefault();
+  });
+</script>
+
+
+
+</body>
+<!-- //Body -->
+</html>

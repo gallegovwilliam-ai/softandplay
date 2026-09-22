@@ -1,0 +1,125 @@
+      <aside>
+          <div id="sidebar"  class="nav-collapse ">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu" id="nav-accordion">
+                  <li>
+                      <a href="/">
+                          <i class="fa fa-dashboard"></i>
+                          <span>Dashboard</span>
+                      </a>
+                  </li>             
+   
+                  <li class="sub-menu">
+                      <a href="javascript:;">
+                          <i class="fa fa-user"></i>
+                          <span>Administracion</span>
+                      </a>
+
+                      <ul class="sub">
+                        <li><a  href="/config/1/">Configuración</a></li>
+                        <li><a  href="{% url 'users-list' %}">Usuarios</a></li>
+                        <li><a  href="{% url 'list-cliente' %}">Clientes</a></li>
+                        <li><a  href="{% url 'pendiente-list' %}">Solicitudes Pendientes</a></li>
+                        <li><a  href="{% url 'pagos-pendientes' %}">Pagos Pendientes</a></li>
+                    </ul>
+                  </li>
+    
+                  <li class="sub-menu">
+                      <a href="javascript:;">
+                          <i class="fa fa-cogs"></i>
+                          <span>Partidas</span>
+                      </a>
+
+                      <ul class="sub">
+                          <li><a  href="{% url 'partida-list' 'en-espera' %}">Loto MX en espera</a></li>
+                          <li><a  href="{% url 'partida-list' 'en-juego' %}">Loto MX en juego</a></li>
+                          <li><a  href="{% url 'partida-list' 'finalizadas' %}">Loto MX Finalizadas</a></li>
+                          <li><a  href="{% url 'partida75-list' 'en-espera' %}">Bingo 75 en espera</a></li>
+                          <li><a  href="{% url 'partida75-list' 'en-juego' %}">Bingo 75 en juego</a></li>
+                          <li><a  href="{% url 'partida75-list' 'finalizadas' %}">Bingo 75 Finalizadas</a></li>
+                        </ul>
+                  </li>
+                <!--
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-cogs"></i>
+                        <span>Chance</span>
+                    </a>
+
+                    <ul class="sub">
+                        <li><a  href="{% url 'list-chance' %}">Loterias</a></li>
+                    </ul>
+                </li>
+                -->
+                  <li class="sub-menu">
+                      <a href="javascript:;">
+                          <i class="fa fa-cogs"></i>
+                          <span>Reportes</span>
+                      </a>
+
+                      <ul class="sub">
+                        <li><a  href="{% url 'reporte-revendedores' %}">revendedores</a></li>
+                        <li><a  href="{% url 'finanzasR' %}">Finanzas</a></li>
+                          
+                      </ul>
+                  </li>
+                            
+                  <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-money"></i>
+                        <span>Vender</span>
+                    </a>
+
+                    <ul class="sub">
+                        <li><a  href="{% url 'vender' %}">Loteria Mexicana</a></li>
+                        <li><a  href="{% url 'vender75' %}">Bingo 75</a></li>
+                        <li><a  href="{% url 'vender-chance' %}">Loteria Chance</a></li>
+                    </ul>
+                </li>    
+                  <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-cogs"></i>
+                        <span>Juego en linea</span>
+                    </a>
+
+                    <ul class="sub">
+                        <li><a href; onclick="validar(1)">Loteria</a></li>
+                        <li><a href; onclick="validar(2)">Bingo 75</a></li>
+                        
+                    </ul>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-money"></i>
+                        <span>Bancos</span>
+                    </a>
+
+                    <ul class="sub">
+                        <li><a  href="{% url 'list-banco' %}">Bancos</a></li>
+                        <li><a  href="{% url 'compras' %}">Compras Loteria</a></li>
+                        <li><a  href="{% url 'compras75' %}">Compras Bingo 75</a></li>
+                    </ul>
+                </li>                   
+           
+            </ul>
+              <!-- sidebar menu end-->
+          </div>
+      </aside>
+
+      <script>
+          function validar(link){
+
+            {% if not user.userprofile.validado %}
+                alert('Debe validar su email');
+                return false;
+            {% endif %}
+
+
+              if(link==1){
+                    window.location="{% url 'lobby-partida' %}";
+              }else{
+                window.location="{% url 'lobby-partida75' %}";
+              }
+          }
+      </script>

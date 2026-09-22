@@ -1,0 +1,53 @@
+{% extends 'dashboard.html' %}
+ {% load static %}
+
+{% block main %}
+    <div class="row">
+    	<div class="col-sm-12">
+    		<section class="card">
+            	<header class="card-header">
+                  	Reporte Revendedores
+            	</header>
+              	<div class="card-body">
+ <form class="form-horizontal " method="POST" action="{% url 'generar-revendedores' %}" id="reportFinanzas" target="_blank">
+                              {%csrf_token%}
+                                  <div class="form-group">
+                                  
+                                      <label class="col-sm-4 control-label">
+                                        Fecha Desde
+                                      </label>
+                                      <div class="col-sm-8">
+        <input class="form-control" id="desde" name="desde" placeholder="Fecha Inicio" type="date">
+                                      </div>
+                                  </div>
+
+                                 <div class="form-group">
+                                      <label class="col-sm-4 control-label">
+                                        Fecha Hasta
+                                      </label>
+                                      <div class="col-sm-8">
+       <input class="form-control" id="hasta" name="hasta" placeholder="Fecha Fin" type="date">
+
+                                      </div>
+                                  </div>
+                               
+
+                      <div class="form-group">
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <button type="button" class="btn btn-primary" onclick="Javascript:location.href='/'">Cancelar</button>
+                          <button type="submit" class="btn btn-success">Generar</button>
+                        </div>
+                      </div>
+
+
+                  </form>              		
+              	</div>
+          	</section>
+      	</div>
+  </div>
+
+{% endblock %}
+
+{% block js %}
+	
+{% endblock js %}

@@ -1,0 +1,88 @@
+{% extends 'dashboard.html' %}
+ {% load static %}
+ {% load humanize %}
+{% block css %}
+	  <!--dynamic table-->
+    <link href="{% static 'assets/advanced-datatable/media/css/demo_page.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/advanced-datatable/media/css/demo_table.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'assets/data-tables/DT_bootstrap.css' %}" />
+{% endblock css %}
+
+{% block main %}
+              <div class="row">
+                <div class="col-sm-12">
+              <section class="card">
+              <header class="card-header">
+                  Reporte Financiero Loteria Mexicana
+             <span class="tools pull-right">
+                <a href="javascript:;" class="fa fa-chevron-down"></a>
+                <a href="javascript:;" class="fa fa-times"></a>
+             </span>
+              </header>
+              <div class="card-body">
+                <form class="form-horizontal " method="POST" action="/reporte/finanzas-total/" id="reportFinanzas" target="_blank">
+                  {%csrf_token%}
+                      <div class="form-group">
+                        <!--Error -->
+                        <div class="alert alert-danger alert-dismissable"style="display:none;width:98%;margin:auto" id="ErrorDesde">
+                          <strong>Error!</strong> 
+                            <span>Indicates a successful or positive action.</span>  
+                        </div>
+                        <div id="ErrorDesdeBR" style="display:none"><br></div>
+                        <!--Fin Error -->
+                          <label class="col-sm-2 control-label">
+                            Fecha Desde
+                          </label>
+                          <div class="col-sm-10">
+                <input class="form-control round-input" id="desde" name="desde" placeholder="Fecha Inicio" type="text">
+                          </div>
+                      </div>
+                
+                     <div class="form-group">
+                      <div class="alert alert-danger alert-dismissable"style="display:none;width:98%;margin:auto" id="ErrorHasta">
+                          <strong>Error!</strong> 
+                            <span>Indicates a successful or positive action.</span>  
+                        </div>
+                        <div id="ErrorHastaBR" style="display:none"><br></div>
+                        <!--Fin Error -->
+                          <label class="col-sm-2 control-label">
+                            Fecha Hasta
+                          </label>
+                          <div class="col-sm-10">
+                <input class="form-control round-input" id="hasta" name="hasta" placeholder="Fecha Fin" type="text">
+                
+                          </div>
+                      </div>
+                   
+                
+                <div class="form-group">
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                <button type="button" class="btn btn-primary" onclick="Javascript:location.href='/carton/asignacion/'; void(0);">Cancelar</button>
+                <button type="submit" class="btn btn-success">Generar</button>
+                </div>
+                </div>
+                
+                
+                </form>
+                
+              </div>
+              </section>
+              </div>
+              </div>
+
+{% endblock %}
+
+{% block js %}
+	  
+<script>
+  $('#desde').datepicker();
+  $('#hasta').datepicker();
+</script>
+ 
+{% endblock js %}
+
+
+<script>
+  $('#desde').datepicker();
+  $('#hasta').datepicker();
+</script>

@@ -1,0 +1,140 @@
+{% extends 'dashboard.html' %}
+ {% load static %}
+ {% load humanize %}
+{% block main %}
+<style type="text/css">
+	.hidden-message{display: none;}
+</style>
+	              <!-- page start-->
+              <div class="chat-room">
+                  <aside class="mid-side" id="mid-side" style="height:500px !important;overflow-y:auto">
+                      <div class="chat-room-head">
+                          <h3 id="userTagActive"></h3>
+                          <form action="#" class="pull-right position">
+                              <input type="text" placeholder="Search" class="form-control search-btn ">
+                          </form>
+                      </div>
+
+
+
+     <div id="message_content">
+</div>
+
+                      <footer>
+                          <div class="chat-txt">
+                              <input type="text" class="form-control" id="txtMessage">      
+                          </div>
+                          <div class="btn-group">
+                          	  {%csrf_token%}
+                              <button type="button" class="btn btn-white"><i class="fa fa-meh-o"></i></button>
+                              <button type="button" class="btn btn-white"><i class=" fa fa-paperclip"></i></button>
+                          </div>
+                          <button class="btn btn-danger" id="btnsend" onclick="sendMessage();">Send</button>
+                      </footer>
+                  </aside>
+                  <aside class="right-side">
+                      <div class="user-head">
+                          <a href="#" class="chat-tools btn-success"><i class="fa fa-cog"></i> </a>
+                          <a href="#" class="chat-tools btn-key"><i class="fa fa-key"></i> </a>
+                      </div>
+                      <div class="invite-row">
+                        {% if user_chat.message__user_emiter__username %}
+                          <h4 class="pull-left">Administradores</h4>
+                        {% else %}
+                          <h4 class="pull-left">Usuarios</h4>
+                        {% endif %}
+                      </div>
+                      <ul class="chat-available-user">
+                      	{% for user_chat in object_list%}
+                          <li>
+                            {% if user_chat.message__user_emiter__username %}
+
+                                <a href="javascript:openChat('{{user_chat.message__user_emiter__username}}');">
+                                  <i class="fa fa-circle text-success"></i>
+                                    {{user_chat.message__user_emiter__username}}
+                                  {% else %}
+                                <a href="javascript:openChat('{{user_chat.username}}');">
+                                  <i class="fa fa-circle text-success"></i>
+                                    {{user_chat.username}}
+                                  {% endif %}
+
+                              </a>
+                          </li>
+                         {% endfor %}
+                          
+                      </ul>
+                      <footer>
+                          <a href="#" class="guest-on">
+                              <i class="fa fa-check"></i>
+                              Guest Access On
+                          </a>
+                      </footer>
+                  </aside>
+              </div>
+              <!-- page end-->
+{% endblock main %}
+
+{% block js %}
+	<script type="text/javascript">
+	//nice scroll
+  $('#mid_side').niceScroll({
+    cursorwidth: '0px',
+    cursorborder: "",
+    cursorcolor: "#b1babe",
+    boxzoom: false,
+    autohidemode: false,
+    cursorfixedheight: 140,
+    railhoffset: {top: 10, left: 0},
+  });  
+
+
+	var userActive = '';
+
+function openChat(username){
+	userActive = username;
+	$('#userTagActive').html(userActive);
+	$.get('scroll/?username=' + username, function (data){
+		$( "#message_content" ).html( data );
+	});
+}
+
+function sendMessage(){
+  btnsend = document.getElementById('btnsend');
+  btnsend.disabled = true;
+  if($('#txtMessage').val()==''){
+    btnsend.disabled = false;
+    return false;
+  }
+  if(userActive==""){
+    alert('Seleccione un Usuario');
+    btnsend.disabled = false;
+    return false;
+  }
+ var formData = new FormData();
+  formData.append('user_emiter','{{user.username}}');
+  formData.append('user_reciver',userActive);
+  formData.append('message',$('#txtMessage').val());
+  formData.append('csrfmiddlewaretoken', $("input[name='csrfmiddlewaretoken']").val());
+  $('#txtMessage').val('');
+   $.ajax({
+           type: "POST",
+           url: '{% url "send-messages" %}',
+           enctype: 'multipart/form-data',         
+           data: formData, // serializes the form's elements.
+           processData: false,  // tell jQuery not to process the data
+           contentType: false,  // tell jQuery not to set contentType           
+           success: function(data)
+           {
+           	a=data;
+
+            $('.infinite-container').prepend("<div class='group-rom infinite-item'><div class='first-part'><img width='30px' height:'30px' style='border-radius:35%''  src='" + a.img + "'>&nbsp;&nbsp;" + a.user_emiter + "</div><div class='second-part'>" + a.message + "</div><div class='third-part'>" + a.timeago + "</div></div>");
+            btnsend.disabled = false;
+
+           }
+         });
+  event.preventDefault();
+
+}
+
+  </script>
+{% endblock js %}

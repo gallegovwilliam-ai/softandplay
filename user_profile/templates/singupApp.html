@@ -1,0 +1,126 @@
+{% load static %}
+<html lang="es">
+<title>{{config.titulo}}</title>
+<Head>
+
+<link rel="stylesheet" type="text/css" href="{% static 'login/bootstrapv400.min.css' %}">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1" />
+
+<style type="text/css">
+body {
+background:#222222;
+margin:0px;
+padding:0px;
+background-image:url("/media/{{config.fondo_login_mobile}}");
+}
+.lbl {
+color:#ffffff;
+font: bold 1em 'Arial';
+text-decoration:none;
+}
+.lbl:hover {
+color:#ffffff;
+font: bold 1em 'Arial';
+text-decoration:normal;
+}
+.INGRESAR {
+margin:0px auto;
+margin-top:2em;
+font: bold 1.2em 'Arial';
+padding: 0.5em 2.5em;
+color:rgb(204,39,33);
+border-radius: 20px;
+text-align:center;
+border: 1px solid #ffffff;
+background:transparent;
+cursor:pointer;
+}
+.INGRESAR:hover {
+color:rgb(225,79,74);
+}
+.inpt {
+margin:0px auto;
+font: bold 1em 'Arial';
+width: 100%;
+background: transparent;
+padding: 0.5em;
+outline: none;
+margin: 0.5em auto;
+border:0px;
+border-bottom: 2px solid #ffffff;
+color: #ffffff;
+}
+</style>
+</Head>
+<body>
+	<div style="background:rgb(0,0,0,0.5);width:100%;zoom:0.89;padding:1.5em 0px;z-index:0;">
+		<form id="form">            
+        <input id="IdPais" type="hidden">
+
+        {%csrf_token%}
+		<div class="container" style="text-align:center;margin-top:0em;">
+			<h1 style="color:rgb(199,48,119)">¡Hola, REGISTRATE!</h1>
+			<img src="{% static 'login/logomobile.png' %}" style="width:25%" style="z-index:9999;" alt="Imagen con el texto Gran Bingo - ¡Amarás Tu Suerte!"></img>
+			<div class="row" style="margin-top:2em;margin-bottom:3em;">
+				<div class="col-xl-4 col-2"></div>
+				<div class="col-xl-4 col-8">
+					<div class="forms" action="" method="post">
+						<input class="inpt" type="text" title="Ingresa tu Nombre" id="nnombre" placeholder="Nombre Completo">
+						<input class="inpt" type="text" title="Ingresa tu username" id="username" placeholder="Usuario">
+						<input class="inpt" type="email" title="Ingresa tu email" id="email" placeholder="Email">
+						<input class="inpt" type="password" title="Ingresa tu contraseña" id="password" placeholder="Contraseña">
+                        <div id="error" style="text-align:center;color:#fff"></div>
+                    </div>
+				</div>
+				<div class="col-xl-4 col-2"></div>
+				<input class="INGRESAR" type="submit" name="INGRESAR" value="REGISTRASTE"></input>
+
+               
+			</div>
+		</div>
+		</form>
+	</div>
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+
+
+<script type="text/javascript">
+document.body.onload = function() {
+  $.getJSON('http://api.wipmania.com/jsonp?callback=?', function (data) {
+    $('#IdPais').val(data.address.country);
+  });
+}
+
+
+$('#form').submit(function(){
+          var formData = new FormData();
+          formData.append('nombre',$('#nombre').val());
+          formData.append('username',$('#username').val());
+          formData.append('email',$('#email').val());
+          formData.append('password',$('#password').val());
+          formData.append('pais',$('#IdPais').val());
+          formData.append('csrfmiddlewaretoken', $("input[name='csrfmiddlewaretoken']").val());
+           $.ajax({
+                    type: "POST",
+                    url: "{% url 'register-form' %}",
+                    data: formData, // serializes the form's elements.
+                    enctype: 'multipart/form-data',         
+                    processData: false,  // tell jQuery not to process the data
+                    contentType: false,  // tell jQuery not to set contentType           
+                    success: function(data)
+                   {
+                      if(data=='errorUsername'){
+                          $('#error').html("Nombre de usuario registrado").show();
+
+                       }else if(data=='errorEmail'){
+                          $('#error').html("Email registrado").show();
+                       }else{
+                          location.href='/';
+                       }                     
+                   }
+                 });
+  event.preventDefault();});
+</script>
+
+<body>
+</html>

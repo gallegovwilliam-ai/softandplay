@@ -1,0 +1,2 @@
+# Alias documentado de requeriments para CI/CD y servidores que esperan requirements.txt.
+-r requeriments

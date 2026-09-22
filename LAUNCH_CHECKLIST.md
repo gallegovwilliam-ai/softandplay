@@ -1,0 +1,25 @@
+# Checklist de lanzamiento SoftAndPlay
+
+- [ ] VPS actualizado y firewall activo.
+- [ ] DNS de appsoftandplay.com y www apuntan al VPS.
+- [ ] Docker instalado.
+- [ ] `.env.production` creado con secretos únicos.
+- [ ] PostgreSQL persistente.
+- [ ] Redis persistente.
+- [ ] Certificado TLS emitido.
+- [ ] Migraciones ejecutadas.
+- [ ] `check --deploy` sin errores bloqueantes.
+- [ ] Superusuario creado.
+- [ ] Usuario normal probado.
+- [ ] Revendedor probado.
+- [ ] Compra Bingo probada.
+- [ ] Compra Bingo 75 probada.
+- [ ] Último cartón probado.
+- [ ] Concurrencia probada en staging.
+- [ ] WebSocket probado.
+- [ ] Liquidación y premios probados.
+- [ ] Pagos y reversos probados.
+- [ ] Backup PostgreSQL creado.
+- [ ] Restauración de backup comprobada.
+- [ ] Logs y reinicio de servicios comprobados.
+- [ ] No existen secretos en el repositorio.

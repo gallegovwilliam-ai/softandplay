@@ -1,0 +1,108 @@
+{% load static %}
+{% load thumbnail %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<title>{{config.titulo}}</title>
+	<link rel="stylesheet" href="{% static "css/tablero.css" %}">
+<style>
+	ul{
+		text-align: left;
+		width:300px;
+		margin: auto;
+		margin-bottom: 10px;
+		font-size: 1.3em;
+	}
+	h1{
+		margin-bottom: -20px;
+	}
+	h3{
+		margin-bottom: 5px;
+	}
+</style>
+</head>
+<body>
+
+<center>
+	{% thumbnail user.userprofile.sala.thumb "200x200" crop="center" as im %}
+    	<a href="/"><img src="{{ im.url }}" style="border-radius:50%"></a>
+    {% endthumbnail %} 
+    {% for p in partida%}
+    	<h1>PARTIDA: {{p.id}}</h1>
+    	<h3>Figuras en Juego:</h3>
+    	<ul>
+    		{% if p.figura_1 %}
+    			<li>Primera Linea</li>
+    		{% endif %}
+
+    		{% if p.figura_2 %}
+    			<li>Primera y Segunda Linea</li>
+    		{% endif %}
+    		
+    		{% if p.figura_3 %}
+    			<li>Primera y Tercera Linea</li>
+    		{% endif %}
+
+    		{% if p.figura_4 %}
+    			<li>Segunda Linea</li>
+    		{% endif %}
+
+    		{% if p.figura_5 %}
+    			<li>Segunda y Tercera Linea</li>
+    		{% endif %}
+
+    		{% if p.figura_6 %}
+    			<li>Tercera Linea</li>
+    		{% endif %}
+
+            {% if p.figura_8 %}
+                <li>Linea al Azar</li>
+            {% endif %}
+                                    
+            {% if p.figura_7 %}
+                <li>Bingo</li>
+            {% endif %}
+                                    
+            {% if p.figura_9 %}
+                <li>ReBingo</li>
+            {% endif %}
+                                    
+            {% if p.figura_10 %}
+                <li>Revancha</li>
+            {% endif %}
+                                    
+    	</ul>
+	{% endfor %}
+</center>
+
+<center>
+	{% if user.is_superuser %}
+		<button id="iniciar" disabled="disabled">Iniciar</button>	
+	{% endif %}
+</center>
+
+
+<script src="{% static "js/jquery.js" %}"></script>
+
+<script type="text/javascript">
+	
+document.getElementById("iniciar").addEventListener("click", function(){
+		$.get("/partidas/iniciar/" , function(data){
+            if(data=='ok'){
+                location.reload();
+                return false;
+            }
+
+		});
+	});
+
+  $( document ).ready(function() {
+    setTimeout(function(){
+                document.getElementById("iniciar").disabled  = false;
+            },5000);
+  });
+
+</script>
+
+</body>
+</html>

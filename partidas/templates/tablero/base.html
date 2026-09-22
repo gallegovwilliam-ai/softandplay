@@ -1,0 +1,25 @@
+{% load static %}
+{% load thumbnail %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<title>{{config.titulo}}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{% static "css/base-tablero.css" %}">
+</head>
+<body>
+
+<div class="wrap">
+		<img src="{% static 'img/logo-horizontal.png' %}" width="350px">
+		<hr>
+{% block main %}
+	
+{% endblock main %}
+    <script src="{% static 'js/jquery.js' %}"></script>
+
+{% block js %}
+	
+{% endblock js %}
+</div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+{% extends 'dashboard.html' %}
+ {% load static %}
+ {% load humanize %}
+{% block css %}
+	  <!--dynamic table-->
+    <link href="{% static 'assets/advanced-datatable/media/css/demo_page.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/advanced-datatable/media/css/demo_table.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'assets/data-tables/DT_bootstrap.css' %}" />
+{% endblock css %}
+
+{% block main %}
+              <div class="row">
+                <div class="col-sm-12">
+              <section class="card">
+              <header class="card-header">
+                  Clientes / <a  href="{% url 'crear-cliente' %}" class="btn btn-primary"><i class="fa fa-plus"></i> Crear</a>
+             <span class="tools pull-right">
+                <a href="javascript:;" class="fa fa-chevron-down"></a>
+                <a href="javascript:;" class="fa fa-times"></a>
+             </span>
+              </header>
+              <div class="card-body">
+              <div class="adv-table">
+              <table  class="display table table-bordered table-striped table-responsive" id="dynamic-table">
+              <thead>
+              <tr>
+                  <th>Nombre</th>
+                  <th>Apellido</th>
+                  <th>Dni</th>
+                  <th>Dirección</th>
+                  <th>Teléfomo</th>
+                  <th>Email</th>
+                  <th>Acción</th>
+                  
+              </tr>
+              </thead>
+              <tbody>
+                {% for p in object_list  %}
+                  <tr>
+                  <td>{{ p.nombre }}</td>
+                  <td>{{ p.apellido }}</td>
+                  <td>{{ p.dni }}</td>
+                  <td>{{ p.direccion }}</td>
+                  <td>{{ p.telefono }}</td>
+                  <td>{{ p.email }}</td>
+                  <td class="td-actions text-right" width="120px">
+                      <a type="button" rel="tooltip" class="btn btn-info" href="{% url 'update-cliente' pk=p.id %}">
+                          <i class="fa fa-edit"></i>
+                      </a>
+                      <button type="button" rel="tooltip" class="btn btn-success"  onclick="deleteCliente('{{p.id}}','{{p.name}}');">
+                          <i class="fa fa-trash-o"></i>
+                      </button>
+
+                  </td>
+                </tr>
+                  {% empty%}
+                  <tr>
+                    <td>No hay Registros</td> 
+                    <td>.</td>
+                    <td>.</td>
+                    <td>.</td>                   
+                    <td>.</td>
+                    <td>.</td>
+                    <td>.</td>
+                  </tr>
+
+                {% endfor %}
+
+
+              </tbody>
+              </table>
+              </div>
+              </div>
+              </section>
+              </div>
+              </div>
+{% endblock %}
+
+{% block js %}
+	   <script type="text/javascript" language="javascript" src="{% static 'assets/advanced-datatable/media/js/jquery.dataTables.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/data-tables/DT_bootstrap.js' %}"></script>
+    <script src="{% static 'js/respond.min.js' %}" ></script>
+    <!--dynamic table initialization -->
+    <script src="{% static "js/dynamic_table_init.js" %}"></script>
+    <script>
+    function deleteCliente(pk, name) {
+      
+      option = confirm("Estas seguro de eliminar a " + name);
+      if (option){ window.location = "{% url 'delete-cliente' 1234 %}".replace(/1234/, pk.toString()); }
+    }
+
+    $( document ).ready(function() {
+      console.log( "ready!" );
+      $('#dynamic-table_length').hide();
+    });    
+  </script>
+{% endblock js %}

@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+
+{% block titulo_page %}
+  Perfil de Usuario
+{% endblock titulo_page %}
+
+
+
+       
+{% block main %}
+
+<div class="row">
+    <div class="col-lg-12 text-center">
+        {% thumbnail user.userprofile.thumb "200x200" crop="center" as im %}
+            <center>
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="img-responsive img-circle">
+            </center>
+        {% endthumbnail %}
+        <h2>{{ user.username }}</h2>
+    </div>
+</div>
+<br>
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Nombre de Usuario
+            </header>
+            
+            <div class="panel-body">
+            
+                <form method="post" action="/account/" name='name' class="form-horizontal"> 
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                        Nombre Completo: 
+                        </label>                 
+                        <label class="col-sm-10">
+                            <h4>{{user.first_name}} {{user.last_name}}</h4>
+                        </label>
+                    </div>  
+                    
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                        Nombre 
+                        </label>  
+                        <div class="col-sm-10">
+                            {{change_name_form.first_name}}
+                        </div>                  
+                    </div>                    
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                        Apellido 
+                        </label>  
+                        <div class="col-sm-10">
+                            {{change_name_form.last_name}}
+                            <p>{{name_message}}</p>
+                        </div>                  
+                    </div>                    
+                    <input type="submit" class="btn btn-success" value="Guardar Cambios" name="change_name"/>
+                </form>
+            </div>
+        </section>  
+    </div>
+</div>
+  
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Email de Usuario
+            </header>
+            
+            <div class="panel-body">
+
+               <form method="post" action="/account/" name='email' class="form-horizontal"> 
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                        Email Actual: 
+                        </label>                 
+                        <label class="col-sm-10">
+                           <h4>{{user.email}}</h4>
+                        </label>
+                    </div>  
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                        Email 
+                        </label>  
+                        <div class="col-sm-10">
+                            {{change_email_form.email}}
+                            <p>{{email_message}}</p>
+                        </div>                  
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+    
+                            <input type="submit" class="btn btn-success" name="change_email" value="Guardar Cambios"></input>
+                        </div>
+                    </div>
+                </form>          
+
+            </div>
+        
+                   
+        </section>  
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Restablecer Contraseña
+            </header>
+            
+            <div class="panel-body">
+
+               <form method="post" action="/password_reset/" name='clave' class="form-horizontal" method="post"> 
+                    {% csrf_token %}
+                      <input type="hidden" id="er" name="email" class="form-control" placeholder="Email" value="">              
+                    <p>Se enviara un email a su correo para cambiar su contraseña</p>
+                    <div class="form-group">
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+    
+                            <input type="submit" class="btn btn-success" name="change_email" value="Enviar Email"></input>
+                        </div>
+                    </div>
+                </form>          
+
+            </div>
+        
+                   
+        </section>  
+    </div>
+</div>
+  
+
+
+{% endblock %}
+
+{% block js %}
+    <script>
+    $('#er').val($('#id_email').val());
+    </script>
+{% endblock js %}

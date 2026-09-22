@@ -1,0 +1,15 @@
+# Secrets and local environment
+.env
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Local runtime files
+static_files/
+media_files/
+*.log
+
+# Local SQLite databases (keep existing DB files outside version control)
+*.sqlite3

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+{% block titulo_page %}
+	Exportar Chat
+{% endblock titulo_page %}
+
+
+{% block main %}
+              <div class="row">
+                  <div class="col-lg-12">
+                      <section class="panel">
+                          <header class="panel-heading">
+                             Exportar Chat
+                          </header>
+                          <div class="panel-body">
+                              <form class="form-horizontal " method="POST" action="/reportes/generar-chat/" id="reportSala" target="_blank">
+                              {%csrf_token%}
+                                  <div class="form-group">
+                                    <!--Error -->
+                                    <div class="alert alert-danger alert-dismissable"style="display:none;width:98%;margin:auto" id="ErrorDesde">
+                                      <strong>Error!</strong> 
+                                        <span>Indicates a successful or positive action.</span>  
+                                    </div>
+                                    <div id="ErrorDesdeBR" style="display:none"><br></div>
+                                    <!--Fin Error -->
+                                      <label class="col-sm-2 control-label">
+                                        Fecha Desde
+                                      </label>
+                                      <div class="col-sm-10">
+        <input class="form-control round-input" id="desde" name="desde" placeholder="Fecha Inicio" type="text">
+                                      </div>
+                                  </div>
+
+                                 <div class="form-group">
+                                  <div class="alert alert-danger alert-dismissable"style="display:none;width:98%;margin:auto" id="ErrorHasta">
+                                      <strong>Error!</strong> 
+                                        <span>Indicates a successful or positive action.</span>  
+                                    </div>
+                                    <div id="ErrorHastaBR" style="display:none"><br></div>
+                                    <!--Fin Error -->
+                                      <label class="col-sm-2 control-label">
+                                        Fecha Hasta
+                                      </label>
+                                      <div class="col-sm-10">
+       <input class="form-control round-input" id="hasta" name="hasta" placeholder="Fecha Fin" type="text">
+
+                                      </div>
+                                  </div>
+                               
+
+                      <div class="form-group">
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <button type="button" class="btn btn-primary" onclick="Javascript:location.href='/'; void(0);">Cancelar</button>
+                          <button type="submit" class="btn btn-success">Generar</button>
+                        </div>
+                      </div>
+
+
+                  </form>
+                          </div>
+                      </section>	
+  				</div>
+  			</div>
+	
+{% endblock main %}
+
+
+{% block js %}
+  
+
+
+
+
+
+
+
+<script>
+  $('#desde').datepicker();
+  $('#hasta').datepicker();
+</script>
+
+{% endblock js %}

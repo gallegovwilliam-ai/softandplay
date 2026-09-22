@@ -1,0 +1,30 @@
+.wrap{
+	width: 800px;
+	height: 1200px;
+	box-sizing: border-box;
+	padding: 5px;
+	overflow: hidden;
+	border: 1px solid #000;
+}
+.logo{
+	float: left;
+	width: 49%;
+	display: block;
+}
+.legal{
+	float: right;
+	width: 49%;
+	text-align: left;
+	display: block;
+
+}
+.cabeza{
+	overflow: hidden;
+	display: block;
+	margin-bottom: 10px; 
+}
+h3{
+	margin: 0;
+	margin-bottom: 5px;
+	font-size: 20px;
+}

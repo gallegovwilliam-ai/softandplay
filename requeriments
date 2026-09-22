@@ -1,0 +1,23 @@
+# SoftAndPlay - stack objetivo de modernizacion (Auditoria 21)
+# Python objetivo: 3.13
+# Django 5.2 es LTS; no subir a Django 6.x en esta fase para reducir cambios simultaneos.
+django==5.2.17
+channels==4.3.2
+channels-redis==4.3.0
+daphne==4.2.3
+pillow==12.3.0
+sorl-thumbnail==13.0.0
+gunicorn==23.0.0
+django-rq==4.1.1
+django-redis==6.0.0
+django-cors-headers==4.9.0
+xlrd==2.0.1
+djangorestframework==3.16.1
+reportlab>=4,<5
+openpyxl>=3.1,<4
+django-crispy-forms>=2.3,<3
+requests>=2.32,<3
+social-auth-app-django==6.0.1
+dj-database-url>=2.3,<4
+psycopg2-binary>=2.9.10,<3
+whitenoise>=6.9,<7

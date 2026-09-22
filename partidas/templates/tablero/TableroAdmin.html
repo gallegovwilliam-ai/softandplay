@@ -1,0 +1,419 @@
+{% load static %}
+{% load thumbnail %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{{config.titulo}}</title>
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link rel="stylesheet" href="{% static "css/tablero.css" %}">
+<style type="text/css">
+
+
+.menu{
+    overflow: hidden;
+    background: red;
+    color:#fff;
+    border-radius: 0 10px 10px 0;
+    position: absolute;
+    padding: 5px;
+    padding-left: 10px;
+    padding-bottom: 0;
+    top: 15%;
+    left: 0;
+    font-family: sans-serif;
+    font-size: 2rem;
+    text-align: center;
+    transition: left 0.5s;
+    z-index: 2000;
+  }
+  .checkbox:checked~.menu{
+    left: 340px;
+    background: rgba(255,0,0,0.7);    
+  }  
+  .checkbox:checked~.left-panel{
+    left: 0;
+  }
+
+
+  .left-panel{
+    width: 340px !important;
+    height: 100vh;
+    background: rgba(255,0,0,0.5);
+    position: absolute;
+    top: 0;
+    left: -340px;
+    padding: 5px;
+    box-sizing: border-box;
+    transition: left 0.5s;
+    z-index: 2000;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+
+
+  .menu1{
+    overflow: hidden;
+    background: red;
+    color:#fff;
+    border-radius: 0 10px 10px 0;
+    position: absolute;
+    padding: 5px;
+    padding-left: 10px;
+    padding-bottom: 0;
+    top: 25%;
+    left: 0;
+    font-family: sans-serif;
+    font-size: 2rem;
+    text-align: center;
+    transition: left 0.5s;
+    z-index: 2000;
+  }
+  .checkbox1:checked~.menu1{
+    left: 340px;
+    background: rgba(255,0,0,0.7);    
+  }  
+  .checkbox1:checked~.left-panel1{
+    left: 0;
+  }
+
+  
+  .left-panel1{
+    width: 340px !important;
+    height: 100vh;
+    background: rgba(255,0,0,0.5);
+    position: absolute;
+    top: 0;
+    left: -340px;
+    padding: 5px;
+    box-sizing: border-box;
+    transition: left 0.5s;
+    z-index: 2000;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  .content-panel{
+    width: 90%;
+    margin:auto;
+
+  }  
+  .content-panel1{
+    width: 90%;
+    margin:auto;
+
+  }
+  #dni-cliente{
+    width: 100%;
+    padding: 5px;
+    border: none;
+    box-sizing: border-box;
+  }
+  .cards-panel{
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+  }
+  .checkbox1, .checkbox{
+    display: none;
+  }
+  .btn-panel{
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: orange;
+    border-color: orange;
+    color: #fff;
+    padding: 10px 0 10px 0;
+    text-decoration: none;
+    font-weight: bold;
+  }
+html{  overflow: hidden;}
+body{
+  background: url("/media/{{config.fondo_pantalla_mexicana}}") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100vh;
+  overflow: hidden;
+
+}
+.wrap-right{ min-height: 400px;}
+@media screen and (max-width: 930px){
+	.wrap-right{
+		float: left;
+	}
+
+}
+@media screen and (max-width: 840px){
+	.wrap-left{
+		display: none;
+	}
+	.wrap-right{
+		max-width:100% !important;
+		text-align: center;
+		float: none;
+
+	}
+	.container{text-align: center;}
+}
+</style>
+</head>
+<body style="text-align:center">
+	<input type="checkbox" id="checkbox" class="checkbox">
+	<label class="menu" for="checkbox" title="CARTONES EN JUEGO">
+         
+            <img src="{% static 'img/table-icon.png' %}" style="width:28px;height:28px">
+                                
+    </label>
+	<div class="left-panel">
+		<div class="content-panel">
+			<input type="text" id="dni-cliente" placeholder="ID CLIENTE">
+			<button class="btn-panel" id="dni-panel">Buscar</button>
+			<div class="cards-panel" id="cards-panel"></div>
+		</div>
+	</div>
+
+	<input type="checkbox" id="checkbox1" class="checkbox1">
+	<label class="menu1" for="checkbox1" title="VENTAS EN PARTIDA">
+            <img src="{% static 'img/sell.png' %}" style="width:28px;height:28px" >
+    </label>
+	<div class="left-panel1">
+		<div class="content-panel1">
+			<h4 style="color:white">Tablas Vendidas</h4>
+				{% for r in revendedores  %}
+					<div class="seller">
+						<h5>{{r.user.username}}</h5>
+						<div class="seller-content">
+							<label>Vendidos:</label> <strong>{{r.vendidos}}</strong>
+							<h4>{{r.user.userprofile.state}} - {{r.user.userprofile.city}}</h4>
+						</div>
+					</div>					
+				{% endfor %}
+		</div>
+	</div>
+
+
+	<section class="content-ganador" id="content-ganador">
+		<div class="ganadores-items" id="ganadores-items" style="margin-bottom:20px;display: flex;justify-content: center;align-content: center;flex-wrap: wrap;"></div>
+		{% if user.is_superuser  %}
+			<a href="Javascript:reload();void(0);" style="background:green;color:#FFFFFF;padding:5px 10px;text-decoration:none;">Cerrar</a>	
+		{% endif %}
+	</section>
+	
+	<!--HEADER DEL TABLERO-->
+	<section class="header">
+		<article class="logo">
+        	<ul class="bar">
+        		<li><img src="/media/{{config.logo_horizontal}}"  width="85%"></li>
+        		<li>
+        			<div class="title">PARTIDA</div>
+        			<div class="content"><span id="partidaNum">{{partidanum}}</span></div>
+        		<li>
+        			<div class="title">TABLAS</div>
+        			<div class="content"><span id="partidaNum">{{cartonvendidos}}</span></div>
+        		</li>
+        		<li>
+        			<div class="title">JUGADAS</div>
+        			<div class="content"><span id="balotasJugadas">{{balotasJugadas}}</span></div>
+        		</li>
+        	</ul>
+
+		</article>
+		
+	</section>	
+<div class="container">
+	<section class="wrap-left" id="wrap-left">
+		<!--TABLERO-->
+		<section class="tablero">
+			{% for i in rango %}
+						<article class="carta">
+							<div class="mark" id="mark{{i}}"></div>
+							<img src="{% static 'cards-masters' %}/{{i}}.png" width="50px">
+						</article>
+
+			{% endfor %}
+		</section>
+
+	</section>
+
+	<section class="wrap-right" id="wrap-right">
+
+		<section class="escogida">
+			<img src="/media/{{config.tapa_carta_lotoMX}}" alt="" id="balotaE" width="200px">
+		</section>
+	<div style="text-align:center">
+		<button id="play" disabled="disabled"><img src="{% static 'img/play.png' %}" width="40px"></button>	
+		<button id="pausar"><img src="{% static 'img/pausa.png' %}" width="40px"></button>
+		<button id="refresh" onclick="reload()"><img src="{% static 'img/recargar.png' %}" width="40px"></button>
+	</div>
+
+	</section>
+	<br>
+
+</div>
+
+			
+			<div style=";font-size:1.3em;text-align:center;color:#000">ULTIMAS 5</div>
+			<div id="ultimas5" class="ultimas5">
+			{% for ultima in ultimas5%}
+					<img src="/static/cards-masters/{{ultima.balota}}.png" width="65px" style="float:center"></img>
+			{%endfor%}
+			</div>
+
+
+<script src="{% static "js/jquery.js" %}"></script>
+
+
+
+
+<audio id="audio" src = "" type="audio/mp3" >
+</audio>
+
+<audio id="bell" src = "{% static 'sound/bell.mp3' %}" type="audio/mp3" >
+</audio>
+
+<script>
+
+ numeroE  = 0;
+
+ var Sigue = true;
+//document.oncontextmenu = function(){return false;};
+  	myAudio=document.getElementById('audio');
+
+	{% for n in numeros  %}
+		$('#mark{{n.balota}}').hide();
+	{% endfor %}
+
+
+	//SI ES SUPER USER PUEDE DARLE PLAY
+	{% if user.is_superuser  %}
+	document.getElementById("refresh").addEventListener("click", function(){
+		location.reload();
+	});	
+	document.getElementById("pausar").addEventListener("click", function(){
+		pausar();
+	});
+	document.getElementById("play").addEventListener("click", function(){
+		document.getElementById("play").disabled  = true;
+		$.get("/partidas/jugar/{{partidanum}}/", function(data, status){
+			if(data.ganador=='none'){Sigue=true;}
+        });
+	});
+	{% endif %}
+
+	document.getElementById("dni-panel").addEventListener("click", function(){
+		$.get('/partidas/cards-panel/{{partidanum}}/' + $('#dni-cliente').val() + '/',function(data){
+				document.getElementById('cards-panel').innerHTML = data;
+		});
+	});	
+
+function pausar(){
+	Sigue = false;
+	document.getElementById("play").disabled  = false;
+	return false;
+}
+
+
+
+// A $( document ).ready() block.
+$( document ).ready(function() {
+	 document.getElementById("wrap-right").style.height =document.getElementById("wrap-left").offsetHeight + "px";
+	
+	 setTimeout(function(){
+	   document.getElementById("play").disabled  = false;
+	 }, 10000);
+
+});
+
+myAudio.addEventListener('loadeddata',function() {
+		myAudio.play();
+});
+
+
+myAudio.addEventListener('ended',function() {
+	$("#balotaE").attr("src", '/static/cards-masters/' + numeroE + '.png');
+	//ULTIMAS 5
+	imgs = '';
+    ultimas5 = JSON.parse(ultimas5);
+	for (var i = 0; i < ultimas5.length; i++){	
+		imgs = imgs + '<img src="/static/cards-masters/' + ultimas5[i].fields.balota + '.png" width="80px" style="float:center"></img>';
+
+	}
+	document.getElementById('ultimas5').innerHTML = imgs;
+    
+    //SIGUE JUGADO DA CLICK A play  	
+	setTimeout(function(){
+		document.getElementById("play").disabled  = false;
+		if(Sigue==true){ document.getElementById("play").click();}
+	},7000);		
+});
+
+
+    var loc = window.location;
+    var wsStart = "ws://";
+    if (loc.protocol == "https:"){
+        wsStart = "wss://";
+    }
+    var webSocketEndpoint =  wsStart + loc.host + '/notifications/partida/';  // ws : wss   // Websocket URL, Same on as mentioned in the routing.py
+    var socket = new WebSocket(webSocketEndpoint); // Creating a new Web Socket Connection
+    // Socket On receive message Functionality
+    socket.onmessage = function(e){
+        console.log('message', e);
+          data = JSON.parse(e.data);
+          if(data.reload == 'SI'){location.reload();return false;};
+            if(data.ganador == 'termino'){
+                Sigue = false;
+                document.getElementById('ganadores-items').innerHTML = "<img src='/static/img/luego.jpg' width='50%' style='border-radius:30px;margin-top:100px;'>";
+                document.getElementById('content-ganador').style.display = 'block';
+                return false;
+            }
+			if(data.ganador != 'none'){
+                Sigue = false;
+				document.getElementById('ganadores-items').innerHTML = data.ganador;
+                document.getElementById('content-ganador').style.display = 'block';
+			}
+			ultimas5 = data.ultimas5;
+			$('#mark' + data.balota).hide();
+			numeroE = data.balota;
+            if(document.getElementById("bell"+data.balota)){
+                document.getElementById("bell"+data.balota).style.display ='none';
+                document.getElementById("bell").play();
+            }
+			document.getElementById('balotasJugadas').innerHTML = data.balotasJugadas;
+			myAudio.src = "/static/audio/" + data.balota + ".mp3";
+			myAudio.load();
+	       	$("#balotaE").attr("src", '/media/{{config.tapa_carta_lotoMX}}');
+
+
+    };
+    // Socket Connet Functionality
+    socket.onopen = function(e){
+       console.log('open',e);
+    };
+    // Socket Error Functionality
+    socket.onerror = function(e){
+        console.log('error',e);
+    };
+    // Socket close Functionality
+    socket.onclose = function(e){
+        console.log('closed',e);
+    };
+  //FIN WEBSOCKET
+
+
+    function reload(){
+        data = {'reload':'SI'};
+    var msg = {
+    type: "notify",
+    text: JSON.stringify(data),
+    };
+    // Send the msg object as a JSON-formatted string.
+    socket.send(JSON.stringify(msg));
+    }
+</script>
+
+</body>
+</html>

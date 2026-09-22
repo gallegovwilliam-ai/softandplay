@@ -1,0 +1,28 @@
+  {% load humanize %}
+                  <!-- notification dropdown start-->
+                  <li id="header_notification_bar" class="dropdown">
+                      <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                          <i class="fa fa-bell-o"></i>
+                          <span class="badge badge-warning" id="count_notify">{{count_notify}}</span>
+                      </a>
+                      <ul class="dropdown-menu extended notification" id="ul_notifications"  style="max-height:450px">
+                            <div class="notify-arrow notify-arrow-yellow"></div>
+                          <li>
+                              <p class="yellow" id="message_notifications">Tienes {{count_notify}} nuevas notificaciones</p>
+                          </li>
+                          <div id="new_notify"></div>
+                         {% for n in notifications %}
+                          <li>
+                              <a href="#">
+                                  <span class="label label-info"><i class="fa fa-bolt"></i></span>
+                                  {{ n.notification }}
+                                  <span class="small italic">{{ n.created_at|naturaltime }}</span>
+                              </a>
+                          </li>
+                          {% endfor %}
+                           <li>
+                              <a href="#">See all notifications</a>
+                          </li>
+                      </ul>
+                  </li>
+                  <!-- notification dropdown end -->

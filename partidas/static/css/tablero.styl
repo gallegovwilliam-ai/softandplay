@@ -1,0 +1,135 @@
+@import 'nib'
+@import 'nib/vendor'
+@import 'nib/gradients'
+
+vendor_prefixes = o ms webkit moz
+
+body
+	background #EEEEEE
+	
+section.tablero
+	width 1200px
+	box-sizing: border-box
+	display flex
+	justify-content  space-around
+	margin auto
+	margin-bottom 5px
+	article.numero 
+		width 50px
+		height 50px
+		border-radius 50%
+		background linear-gradient(top, #ffffff,#F2F2F2)
+		display flex
+		align-items center
+		justify-content center
+		margin 1px
+		box-shadow 0 1px 2px rgba(0, 0, 0, .3)
+		font-weight bold
+		font-size 2em
+		
+section.escogida
+	width 100%
+	text-align center
+	animation: girar 2s infinite linear;
+
+	article.ganadora
+		width 100px
+		height 100px
+		background linear-gradient(top, #ffffff,#F2F2F2)
+		margin auto
+		display flex
+		align-items center
+		justify-content center
+		box-shadow 0 2px 4px rgba(0, 0, 0, .5)
+		border-radius 50%
+		font-size 4em	
+
+section.ganador
+	display none
+	position fixed
+	width 600px
+	height auto
+	padding 20px
+	background #FFFFFF
+	border-radius 5px
+	box-shadow 0 2px 4px rgba(0, 0, 0, .5)
+	left 50%
+	top 50%
+	margin-top - 150px
+	margin-left -300px
+	z-index 20000
+
+
+section.ganador1
+	display none
+	position fixed
+	width 600px
+	max-height 350px
+	padding 20px
+	background #FFFFFF
+	border-radius 5px
+	box-shadow 0 2px 4px rgba(0, 0, 0, .5)
+	left 50%
+	top 50%
+	margin-top - 150px
+	margin-left -300px
+	z-index 200000
+	
+section.header
+	width 1200px
+	height 80px
+	margin auto
+	box-sizing border-box
+	padding 10px
+	overflow hidden
+	article.logo
+		float left
+	article.sala
+		float left
+		margin-left 5px
+		h1 
+			font-size 1.5em
+			margin-top 10px
+	article.datos
+		height 50px
+		float right
+		font-size .9em
+		ul
+			padding 0
+			margin 0 
+			list-style none
+button
+	width 100px
+	height 30px
+	background orange
+	color #333
+	font-size 1.2em
+	border-radius 5px
+	box-shadow 0 2px 4px rgba(0, 0, 0, .5)
+	&:disabled
+		opacity .5
+		
+#grande
+	position fixed
+	top 100px
+	left "calc(50% - %s)" % 100px
+	display none
+
+.cartones-ganadores
+	width 100%
+	box-sizing border-box
+	padding 2px	
+	display flex
+	justify-content  space-around
+	margin-bottom 5px
+	.figura-ganadoras
+		width 80px
+		height 80px
+		background #fff
+		box-shadow 0 2px 4px rgba(0, 0, 0, .5)		
+		div.titulo
+			width 100%
+			background #58D3F7
+		label
+			font-size 3em
+			font-weight bold

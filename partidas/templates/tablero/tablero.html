@@ -1,0 +1,328 @@
+{% load static %}
+{% load thumbnail %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{{config.titulo}}</title>
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'css/tablero.css' %}">
+<style type="text/css">
+
+
+.menu{
+    overflow: hidden;
+    background: red;
+    color:#fff;
+    border-radius: 0 10px 10px 0;
+    position: absolute;
+    padding: 5px;
+    padding-left: 10px;
+    padding-bottom: 0;
+    top: 15%;
+    left: 0;
+    font-family: sans-serif;
+    font-size: 2rem;
+    text-align: center;
+    transition: left 0.5s;
+    z-index: 2000;
+  }
+  .checkbox:checked~.menu{
+    left: 340px;
+    background: rgba(255,0,0,0.7);    
+  }  
+  .checkbox:checked~.left-panel{
+    left: 0;
+  }
+
+
+  .left-panel{
+    width: 340px !important;
+    height: 100vh;
+    background: rgba(255,0,0,0.5);
+    position: absolute;
+    top: 0;
+    left: -340px;
+    padding: 5px;
+    box-sizing: border-box;
+    transition: left 0.5s;
+    z-index: 2000;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+
+
+  .menu1{
+    overflow: hidden;
+    background: red;
+    color:#fff;
+    border-radius: 0 10px 10px 0;
+    position: absolute;
+    padding: 5px;
+    padding-left: 10px;
+    padding-bottom: 0;
+    top: 25%;
+    left: 0;
+    font-family: sans-serif;
+    font-size: 2rem;
+    text-align: center;
+    transition: left 0.5s;
+    z-index: 2000;
+  }
+  .checkbox1:checked~.menu1{
+    left: 340px;
+    background: rgba(255,0,0,0.7);    
+  }  
+  .checkbox1:checked~.left-panel1{
+    left: 0;
+  }
+
+  
+  .left-panel1{
+    width: 340px !important;
+    height: 100vh;
+    background: rgba(255,0,0,0.5);
+    position: absolute;
+    top: 0;
+    left: -340px;
+    padding: 5px;
+    box-sizing: border-box;
+    transition: left 0.5s;
+    z-index: 2000;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  .content-panel{
+    width: 90%;
+    margin:auto;
+
+  }  
+  .content-panel1{
+    width: 90%;
+    margin:auto;
+
+  }
+  #dni-cliente{
+    width: 100%;
+    padding: 5px;
+    border: none;
+    box-sizing: border-box;
+  }
+  .cards-panel{
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+  }
+  .checkbox1, .checkbox{
+    display: none;
+  }
+  .btn-panel{
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: orange;
+    border-color: orange;
+    color: #fff;
+    padding: 10px 0 10px 0;
+    text-decoration: none;
+    font-weight: bold;
+  }
+html{  overflow: auto;}
+body{
+  background: url("/media/{{config.fondo_pantalla_mexicana}}") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100vh;
+text-align: center;
+}
+.tablas-user{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.wrap-right{ max-width: 100% !important; float: none; text-align: center;
+  display: flex;
+  justify-content: center;
+  align-content: center;        
+}
+
+  .container{text-align: center;}
+
+</style>
+</head>
+<body>
+
+
+
+	<section class="content-ganador" id="content-ganador">
+		<div class="ganadores-items" id="ganadores-items" style="margin-bottom:20px;display: flex;justify-content: center;align-content: center;flex-wrap: wrap;"></div>
+	</section>
+	
+	<!--HEADER DEL TABLERO-->
+	<section class="header">
+		<article class="logo">
+        	<ul class="bar">
+        		<li><img src="/media/{{config.logo_horizontal}}" width="85%"></li>
+        		<li>
+        			<div class="title">PARTIDA</div>
+        			<div class="content"><span id="partidaNum">{{partidanum}}</span></div>
+        		<li>
+        			<div class="title">TABLAS</div>
+        			<div class="content"><span id="partidaNum">{{cartonvendidos}}</span></div>
+        		</li>
+        		<li>
+        			<div class="title">JUGADAS</div>
+        			<div class="content"><span id="balotasJugadas">{{balotasJugadas}}</span></div>
+        		</li>
+        	</ul>
+
+		</article>
+		
+	</section>	
+<div class="container">
+
+
+	<section class="wrap-right" id="wrap-right">
+
+		<section class="escogida">
+			<img src="/media/{{config.tapa_carta_lotoMX}}" alt="" id="balotaE" width="200px">
+		</section>
+
+	</section>
+	<br>
+
+</div>
+
+			
+			<div style="font-size:1.3em;text-align:center;color:#000">ULTIMAS 5</div>
+			<div id="ultimas5" class="ultimas5">
+			{% for ultima in ultimas5%}
+					<img src="/static/cards-masters/{{ultima.balota}}.png" width="65px" style="float:center"></img>
+			{%endfor%}
+			</div>
+
+<div class="tablas-user" id="tablas-user">
+
+</div>
+<script src="{% static 'js/jquery.js' %}"></script>
+
+
+
+
+<audio id="audio" src = "" type="audio/mp3" >
+</audio>
+
+<audio id="bell" src = "{% static 'sound/bell.mp3' %}" type="audio/mp3" >
+</audio>
+
+<script>
+
+ numeroE  = 0;
+
+ var Sigue = true;
+//document.oncontextmenu = function(){return false;};
+  	myAudio=document.getElementById('audio');
+
+	{% for n in numeros  %}
+		$('#mark{{n.balota}}').hide();
+	{% endfor %}
+
+
+
+
+	{% if user.userprofile.user_type == 'Usuario' %}
+	$.get('/partidas/cards-panel/{{partidanum}}/{{idCliente}}/',function(data){
+				document.getElementById('tablas-user').innerHTML = data;
+		});
+	{% endif %}	
+
+
+
+
+// A $( document ).ready() block.
+$( document ).ready(function() {
+	 document.getElementById("wrap-right").style.height =document.getElementById("wrap-left").offsetHeight + "px";
+	
+
+});
+
+myAudio.addEventListener('loadeddata',function() {
+		myAudio.play();
+});
+
+
+myAudio.addEventListener('ended',function() {
+	$("#balotaE").attr("src", '/static/cards-masters/' + numeroE + '.png');
+	//ULTIMAS 5
+	imgs = '';
+    ultimas5 = JSON.parse(ultimas5);
+	for (var i = 0; i < ultimas5.length; i++){	
+		imgs = imgs + '<img src="/static/cards-masters/' + ultimas5[i].fields.balota + '.png" width="80px" style="float:center"></img>';
+
+	}
+	document.getElementById('ultimas5').innerHTML = imgs;
+    
+	
+});
+
+
+    var loc = window.location;
+    var wsStart = "ws://";
+    if (loc.protocol == "https:"){
+        wsStart = "wss://";
+    }
+    var webSocketEndpoint =  wsStart + loc.host + '/notifications/partida/';  // ws : wss   // Websocket URL, Same on as mentioned in the routing.py
+    var socket = new WebSocket(webSocketEndpoint); // Creating a new Web Socket Connection
+    // Socket On receive message Functionality
+    socket.onmessage = function(e){
+        console.log('message', e);
+          data = JSON.parse(e.data);
+          if(data.reload == 'SI'){location.reload();return false;};
+            if(data.ganador == 'termino'){
+                Sigue = false;
+                document.getElementById('ganadores-items').innerHTML = "<img src='/static/img/luego.jpg' width='50%' style='border-radius:30px;margin-top:100px;'>";
+                document.getElementById('content-ganador').style.display = 'block';
+                return false;
+            }
+			if(data.ganador != 'none'){
+                Sigue = false;
+				document.getElementById('ganadores-items').innerHTML = data.ganador;
+                document.getElementById('content-ganador').style.display = 'block';
+			}
+			ultimas5 = data.ultimas5;
+			$('#mark' + data.balota).hide();
+			numeroE = data.balota;
+            if(document.getElementById("bell"+data.balota)){
+                document.getElementById("bell"+data.balota).style.display ='none';
+                document.getElementById("bell").play();
+            }
+			document.getElementById('balotasJugadas').innerHTML = data.balotasJugadas;
+			myAudio.src = "/static/audio/" + data.balota + ".mp3";
+			myAudio.load();
+	       	$("#balotaE").attr("src", '/media/{{config.tapa_carta_lotoMX}}');
+    };
+    // Socket Connet Functionality
+    socket.onopen = function(e){
+       console.log('open',e);
+    };
+    // Socket Error Functionality
+    socket.onerror = function(e){
+        console.log('error',e);
+    };
+    // Socket close Functionality
+    socket.onclose = function(e){
+        console.log('closed',e);
+    };
+  //FIN WEBSOCKET
+
+
+</script>
+
+</body>
+</html>

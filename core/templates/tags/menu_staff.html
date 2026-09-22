@@ -1,0 +1,38 @@
+      <aside>
+          <div id="sidebar"  class="nav-collapse ">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu" id="nav-accordion">
+                  <li>
+                      <a href="/">
+                          <i class="fa fa-dashboard"></i>
+                          <span>Dashboard</span>
+                      </a>
+                  </li>             
+   
+                <li>
+                      <a href="{% url 'list-cliente' %}">
+                          <i class="fa fa-user"></i>
+                          <span>
+                          Clientes</span>
+                      </a>
+                  </li>                              
+
+                   <li>
+                      <a href="{% url 'vender' %}">
+                          <i class="fa  fa-shopping-cart"></i>
+                          <span>
+                          Vender</span>
+                      </a>
+                  </li>                              
+                  <li>
+                      <a href="{% url 'lobby-partida' %}">
+                          <i class="fa fa-table"></i>
+                          <span>
+                          Juego en linea</span>
+                      </a>
+                  </li>                              
+
+              </ul>
+              <!-- sidebar menu end-->
+          </div>
+      </aside>

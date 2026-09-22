@@ -1,0 +1,21 @@
+[Unit]
+Description=SoftAndPlay Gunicorn
+After=network.target
+
+[Service]
+Type=simple
+User=softandplay
+Group=www-data
+WorkingDirectory=/opt/softandplay/app
+EnvironmentFile=/opt/softandplay/app/.env
+ExecStart=/opt/softandplay/env3/bin/gunicorn app.wsgi:application --workers 3 --bind 127.0.0.1:8000 --timeout 120 --access-logfile - --error-logfile -
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/opt/softandplay/app/media_files /opt/softandplay/app/static_files
+
+[Install]
+WantedBy=multi-user.target

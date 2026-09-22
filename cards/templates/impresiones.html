@@ -1,0 +1,184 @@
+{% extends 'dashboard.html' %}
+ {% load static %}
+ {% load humanize %}
+
+{% block main %}
+    <div class="row">
+    	<div class="col-sm-12">
+    		<section class="card">
+            	<header class="card-header">
+                  	Vender
+            	</header>
+              	<div class="card-body">
+              		<form>
+              			{% csrf_token %}
+								
+                                  <div class="form-group">                                    
+                                      <label class="col-sm-2 control-label">
+                                        Partida a Vender
+                                      </label>
+                                      <div class="col-sm-10">
+                                        <div class="input-group">
+                                          <select class="form-control" id="partida">
+                                            {% for p in partidas%}
+                                               <option value="{{p.pk}}">{{p}}</option>
+                                            {% endfor %}
+                                          </select>
+                                        </div>
+                                      </div>
+                                  </div>
+
+                                  <div class="form-group">                                    
+                                      <label class="col-sm-2 control-label">
+                                        ID Cliente (codigo)
+                                      </label>
+                                      <div class="col-sm-10">
+                                        <div class="input-group">
+                                          <input type="number" class="form-control number" name="cliente" id="id_cliente" placeholder="ID del Cliente" onblur="$('#btnBusCliente').click();">
+                                          <div class="input-group-btn">
+                                            <button id="btnBusCliente" class="btn btn-primary form-control"><i class="fa fa-search" title="Buscar Cliente"></i></button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label class="col-sm-2 control-label">
+                                        Nombre de Cliente
+                                      </label>
+                                      <div class="col-sm-10">
+                                          <input type="text" name="nombre" id="id_nombre" placeholder="Nombre del Cliente" class="form-control">
+                                      </div>
+                                  </div>
+
+                                  <div class="form-group">
+                                       <label class="col-sm-2 control-label">
+                                        Teléfono
+                                      </label>
+                                      <div class="col-sm-10">
+                                          <input type="text" name="telefono" id="id_telefono" placeholder="Telefono del Cliente" class="form-control">
+                                      </div>
+                                  </div>
+
+                                  <div class="form-group">
+                                    <!--Error -->
+                                    <div class="alert alert-danger alert-dismissable"style="display:none;width:98%;margin:auto" id="ErrorSala">
+                                      <strong>Error!</strong> 
+                                        <span>Indicates a successful or positive action.</span>  
+                                    </div>
+                                    <div id="ErrorSalaBR" style="display:none"><br></div>
+                                    <!--Fin Error -->
+                                      <label class="col-sm-2 control-label">
+                                        Cantidad de Cartones
+                                      </label>
+                                      <div class="col-sm-10">
+                                        <select name="cantidad" id="cantidad">
+                                          <option value="1">1</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                        </select>
+                                      </div>
+                                  </div>
+
+                      <div class="form-group">
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <button type="button" class="btn btn-primary" onclick="Javascript:location.href='/cartones/'; void(0);">Cancelar</button>
+                          <button onclick="javascript:imp();return false;" class="btn btn-success" id="imprimir">Imprimir</button>
+                        </div>
+                      </div>              			
+              		</form>
+
+              	</div>
+          	</section>
+      	</div>
+  </div>
+
+{% endblock %}
+
+{% block js %}
+	<script type="text/javascript">
+
+function imp() {
+  if($('#id_nombre').val() != '' || $('#id_telefono').val() != ''){
+    var form = $('<form>', {method: 'POST', action: '/cartones/tikect/', target: 'Imprimir'});
+    form.append($('<input>', {type:'hidden', name:'csrfmiddlewaretoken', value:$('[name=csrfmiddlewaretoken]').val()}));
+    form.append($('<input>', {type:'hidden', name:'v', value:$('#cantidad').val()}));
+    form.append($('<input>', {type:'hidden', name:'c', value:$('#id_cliente').val()}));
+    form.append($('<input>', {type:'hidden', name:'n', value:$('#id_nombre').val()}));
+    form.append($('<input>', {type:'hidden', name:'t', value:$('#id_telefono').val()}));
+    form.append($('<input>', {type:'hidden', name:'partida', value:$('#partida').val()}));
+    $('body').append(form);
+    window.open('', 'Imprimir', 'width=500,height=500');
+    form.submit();
+    form.remove();
+  return false;
+  }else{
+                      $.notify({
+                    // options
+                      titlte: 'Error Cliente',
+                      message: 'Debe ingresar Nombre y Telefono del cliente'
+                  },{
+                    // settings
+                    type: 'danger',
+                    placement: {
+                      from: "bottom",
+                      align: "right"
+                    },
+                    delay: 120000,
+                  });       
+  }  
+}
+
+		$('#btnBusCliente').click(function(){
+
+		if($('#id_cliente').val()==''){
+                  $.notify({
+                    // options
+                      titlte: 'Error Cliente',
+                      message: 'Debe ingresar un DNI de cliente'
+                  },{
+                    // settings
+                    type: 'danger',
+                    placement: {
+                      from: "bottom",
+                      align: "right"
+                    },
+                    delay: 120000,
+                  });		    
+                 return false;
+
+		  }  
+
+		  $.get('/clientes/verificar/',{cedula:$('#id_cliente').val()})
+		  .done(function(data){
+		    if(data=='NoExiste'){
+          $('#id_cliente').val('');
+          $('#id_nombre').val('');
+          $('#id_telefono').val('');
+          $('#id_nombre').attr('readonly',false);
+          $('#id_telefono').attr('readonly',false);				
+          $.notify({
+                    // options
+                      titlte: 'Error Cliente',
+                      message: 'No existe el ID del cliente'
+                  },{
+                    // settings
+                    type: 'danger',
+                    placement: {
+                      from: "bottom",
+                      align: "right"
+                    },
+                    delay: 120000,
+                  });		    
+		    }else{
+
+          document.getElementById("id_nombre").value= data.nombre;
+          document.getElementById("id_telefono").value= data.telefono;
+          $('#id_nombre').attr('readonly','readonly');
+          $('#id_telefono').attr('readonly','readonly');
+		    }
+		  });
+  return false;
+});
+	</script>
+{% endblock js %}

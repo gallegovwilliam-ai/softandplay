@@ -1,0 +1,298 @@
+{% extends 'dashboard.html' %}
+ {% load static %}
+ {% load humanize %}
+{% block css %}
+<style type="text/css">
+
+.carton-n {
+	-webkit-transform:rotateZ(0deg);
+	-moz-transform:rotateZ(0deg);
+	-o-transform:rotateZ(0deg);
+	transform:rotateZ(0deg);
+	}
+
+	.carton-n2 {
+	-webkit-transform:rotateZ(0deg);
+	-moz-transform:rotateZ(0deg);
+	-o-transform:rotateZ(0deg);
+	transform:rotateZ(0deg);
+	}
+
+	.carton-n2 {
+	margin:0px auto;
+	width:320px;
+	height:470px;
+	-webkit-background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	-o-background-size: 100% 100%;
+	background-size: 100% 100%;
+	}
+	
+	.texto-carton {
+	font: bold 14px 'Arial';
+	background:transparent;
+	color:#222222;
+	zoom:1.5;
+	margin-top:7px;
+	text-align:center;
+	-webkit-text-shadow: 0px 0px 3px #ffffff;
+	-moz-text-shadow: 0px 0px 3px #ffffff;
+	-o-text-shadow: 0px 0px 3px #ffffff;
+	text-shadow: 0px 0px 3px #ffffff;
+	}
+	
+	.texto-carton2 {
+	font: bold 14px 'Arial';
+	background:transparent;
+	color:#222222;
+	zoom:2.5;
+	margin-top:7px;
+	text-align:center;
+	-webkit-text-shadow: 0px 0px 3px #ffffff;
+	-moz-text-shadow: 0px 0px 3px #ffffff;
+	-o-text-shadow: 0px 0px 3px #ffffff;
+	text-shadow: 0px 0px 3px #ffffff;
+	}
+	
+	.logo-carton2 {
+	position:relative;
+	left:42.566666666666666666666666666667%;
+	top:-71.2%;
+	width:15%;
+	height:10.9%;
+	background:transparent;
+	overflow:hidden;
+	background-image:url('medida. 2.png');
+	-webkit-background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	-o-background-size: 100% 100%;
+	background-size: 100% 100%;
+	}
+	
+	.INFO-CARTON {
+	margin:0px auto;
+	background:rgb(247,245,252);
+	border:2px dotted rgb(195,195,195);
+	text-align:center;
+	font:bold 1.2em 'Arial';
+	color:rgb(127,127,127);
+	position:absolute;
+	left:0px;
+	top:-15px;
+	width:99%;
+	}
+	
+	.LOGO-INFO {
+	margin:0px auto;
+	background:transparent;
+	height:120px;
+	overflow:hidden;
+	}
+	
+	.LOGO-INFO-DIV {
+	margin:0px auto;
+	width:85%;
+	border-bottom:1px dotted rgb(195,195,195);
+	}
+</style>
+{% endblock css %}
+
+{% block main %}
+              <div class="row">
+                <div class="col-sm-12">
+              <section class="card">
+              <header class="card-header">
+                  Carton Ganador <strong>{{carton.pk}}</strong>
+             <span class="tools pull-right">
+                <a href="javascript:;" class="fa fa-chevron-down"></a>
+                <a href="javascript:;" class="fa fa-times"></a>
+             </span>
+              </header>
+              <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="carton-n2">
+                            <div id="carton-n2" style="position:relative;left:0px;top:0px;width:100%;height:100%;text-align:left;">
+                                <img id="CARTON" src="/media/{{ config.fondo_carton_lotoMX }}" style="position:absolute;left:0px;top:0px;width:100%;height:100%;"></img>
+                                <div id="ct0" style="position: absolute; width: 15.3333%; height: 18.3333%; background: transparent; overflow: hidden; left: 17.6667%; top: 19.7619%;">
+                                    <img  src="{% static 'cards-masters/' %}{{ carton.carton.l1_1 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+                                </div>
+                                <div id="ct1" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 34%; top: 19.7619%;">
+                                    <img  src="{% static 'cards-masters/' %}{{ carton.carton.l1_2 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+                                </div>
+                                <div id="ct2" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 50.3333%; top: 19.7619%;">
+                                    <img  src="{% static 'cards-masters/' %}{{ carton.carton.l1_3 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+                                </div>
+                                <div id="ct3" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 67%; top: 19.7619%;">
+                                    <img  src="{% static 'cards-masters/' %}{{ carton.carton.l1_4 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+                                </div>
+                                <div id="ct4" style="position: absolute; width: 15.3333%; height: 18.3333%; background: transparent; overflow: hidden; left: 17.6667%; top: 38.5714%;">
+                                    <img  src="{% static 'cards-masters/' %}{{ carton.carton.l2_1 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+                                </div>
+                                <div id="ct5" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 34%; top: 38.5714%;">
+                                    <img  src="{% static 'cards-masters/' %}{{ carton.carton.l2_2 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+                                </div>
+                                <div id="ct6" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 50.3333%; top: 38.5714%;">
+                                    <img  src="{% static 'cards-masters/' %}{{ carton.carton.l2_3 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+                                </div>
+                                <div id="ct7" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 67%; top: 38.5714%;">
+                                    <img  src="{% static 'cards-masters/' %}{{ carton.carton.l2_4 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+                                </div>
+                                <div id="ct8" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 17.3333%; top: 57.381%;">
+                                    <img  src="{% static 'cards-masters/' %}{{ carton.carton.l3_1 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+                                </div>
+                                <div id="ct9" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 34%; top: 57.381%;">
+                                    <img  src="{% static 'cards-masters/' %}{{ carton.carton.l3_2 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+                                </div>
+                                <div id="ct10" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 50.3333%; top: 57.381%;">
+                                    <img  src="{% static 'cards-masters/' %}{{ carton.carton.l3_3 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+                                </div>
+                                <div id="ct11" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 67%; top: 57.381%;">
+                                    <img  src="{% static 'cards-masters/' %}{{ carton.carton.l3_4 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+                                </div>
+                                <div id="ct12" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 17.3333%; top: 76.4286%;">
+                                    <img  src="{% static 'cards-masters/' %}{{ carton.carton.l4_1 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+                                </div>
+                                <div id="ct13" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 34%; top: 76.4286%;">
+                                    <img  src="{% static 'cards-masters/' %}{{ carton.carton.l4_2 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+                                </div>
+                                <div id="ct14" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 50.3333%; top: 76.4286%;">
+                                    <img  src="{% static 'cards-masters/' %}{{ carton.carton.l4_3 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+                                </div>
+                                <div id="ct15" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 67%; top: 76.4286%;">
+                                    <img  src="{% static 'cards-masters/' %}{{ carton.carton.l4_4 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+                                </div>
+                                <div class="INFO-CARTON">
+                                    TABLA: {{carton.pk}} | FECHA:{{carton.propietario.partida.fecha|date:"d/m/y" }}
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="col-md-4">
+                        <h4>Usuario: {{carton.propietario.user.username}}</h4>
+                        <h4>
+                            Figura Ganadora: <br>
+                            {% if carton.ganador_1 %}  Linea al Alazar <br> {% endif %}
+                            {% if carton.ganador_2 %} Primera Linea Vertical <br>{% endif %}
+                            {% if carton.ganador_3 %} Segunda Linea Vertica  <br>{% endif %}
+                            {% if carton.ganador_4 %} Tercera Linea Vertical  <br>{% endif %}
+                            {% if carton.ganador_5 %} Cuarta Linea Vertical  <br>{% endif %}
+                            {% if carton.ganador_6 %} Primera Linea Horizontal <br> {% endif %}
+                            {% if carton.ganador_7 %} Segunda Linea Horizontal <br> {% endif %}
+                            {% if carton.ganador_8 %} Tercera Linea Horizontal <br> {% endif %}
+                            {% if carton.ganador_9 %} Cuarta Linea Horizontal <br> {% endif %}
+                            {% if carton.ganador_10 %} Tabla Llena {% endif %}    
+                        </h4>
+                        <h4>Monto: ${{carton.monto|floatformat:2 }}</h4>
+                        
+                        {% if user.is_superuser %}
+                        <label for="">Metodo de Pago</label>
+                        <select id="metodo" class="form-control">
+                            <option value="banco">Banco</option>
+                            <option value="paypal">Paypal</option>
+                            <option value="mercado">Mercado Pago</option>
+                        </select>
+                        <label for="">Datos de Transacción</label>
+                        <textarea placeholder=""  id="datos" class="form-control"></textarea><br>
+                        <button id="btn-proceso" onclick="Javascript:ProcesarPago()" class="btn btn-warning form-control">Procesar Pago</button>
+                        {% else %}
+                            
+                            {% if carton.pago %}
+                                <h4>PAGADO</h4>
+                            {% else %}
+                            <h4>EN PROCESO</h4>
+                            {% endif %}
+                                                            
+                        {% endif %}
+                            
+                    </div>  
+                    <style>
+                        .mensajes-wrap{
+                            width: 100%;
+                            height: 320px;
+                            overflow: hidden;
+                            overflow-y: scroll;
+                        }
+                        .mensaje-item{
+                            width: 90%;
+                            background: #37dbd3;
+                            padding: 8px;
+                            box-sizing: border-box;
+                            border-radius: 8px;
+                            margin: auto;
+                            margin-bottom: 10px;
+                        }
+                        .mensaje-header{width: 100%; font-weight: bold;}
+                        .mensaje-body{width: 100%;}
+                    </style>
+                    <div class="col-md-4">
+                        <h4>Mensajes</h4>
+                        
+                        <div class="mensajes-wrap" id="mensajes-wrap">
+                            {% for m in mensajes %}
+                            <div class="mensaje-item">
+                                <div class="mensaje-header">
+                                    {{m.user.username}} {{m.create_at}}
+                                </div>
+                                <div class="mensaje-body">
+                                    {{m.mensaje}}
+                                </div>                            
+                            </div>                            
+                        {% endfor %}
+                        </div>
+                    <textarea  id="mensaje" class="form-control"></textarea>
+                        <button class="btn btn-primary form-control" id="btnenv" onclick="enviarMsj()">Enviar Mensaje</button>
+                    </div>
+                </div>
+              </div>
+              </section>
+              </div>
+              </div>
+{% endblock %}
+
+{% block js %}
+ <script>
+     function enviarMsj(){
+        btnenv = document.getElementById('btnenv');
+        btnenv.disabled = true;
+		$.post("/pagos/mensaje/{{carton.pk}}/", {mensaje: $('#mensaje').val(), csrfmiddlewaretoken: '{{ csrf_token }}'}, function(data, status){
+            alert('Mensaje enviado');
+            html = `<div class="mensaje-item">
+                        <div class="mensaje-header">
+                            {{user.username}}
+                        </div>
+                        <div class="mensaje-body">`+
+                            document.getElementById("mensaje").value + `
+                    </div>`;
+            var divtest = document.createElement("div");
+            divtest.innerHTML = html;
+            document.getElementById("mensajes-wrap").appendChild(divtest);
+            document.getElementById("mensaje").value = '';
+            document.getElementById("mensajes-wrap").scrollTop=document.getElementById("mensajes-wrap").scrollHeight;
+            btnenv.disabled = false;
+
+        });
+    }
+
+    function ProcesarPago(){
+        document.getElementById('btn-proceso').disabled = true;
+        if ($('#metodo').val() == ''){
+            alert('Debe seleccionar metodo de pago');
+            document.getElementById('btn-proceso').disabled = false;
+            preventDefault();
+        }
+
+        if ($('#datos').val() == ''){
+            alert('Debe ingresar los datos de la transaccion');
+            document.getElementById('btn-proceso').disabled = false;
+            preventDefault();
+        }
+
+        $.get("/pagos/procesar/{{carton.pk}}/?metodo=" + $('#metodo').val() + "&datos=" + $('#datos').val(), function(data, status){
+            alert('pago procesado');
+            window.location = '/pagos/pendientes/';
+        });
+
+    }
+ </script>
+{% endblock js %}

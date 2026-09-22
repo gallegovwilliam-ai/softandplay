@@ -1,0 +1,904 @@
+{% load static %}
+{% load thumbnail %}
+<html>
+<title>{{config.titulo}}</title>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
+<style type="text/css">
+.content-ganador{
+	padding: 20px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color:burlywood; 
+  z-index: 3000;
+  overflow: hidden;
+  overflow-y: scroll;
+  display: none;
+  text-align: center;
+}
+.seller{
+  width: 300px;
+  margin: auto;
+  background: white;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 10px;
+
+}
+.seller h5{
+  margin: 0;
+  padding-top: 10px;
+  background-color: orange;
+  height: 20px;
+}
+.seller-content{
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px;
+}
+	.cards-panel{
+		width: 98%;
+		margin: auto;
+	}
+	.contenedor {
+	position:fixed;
+	left:0px;
+	top:0px;
+	width:100%;
+	height:100%;
+	text-align:left;
+	background: url("/media/{{config.fondo_pantalla_bingo}}")  no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;  
+	}
+
+	/* objeto */
+	.menu {
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:100%;
+	height:100%;
+	}
+
+	/* objeto */
+	.tabla {
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:100%;
+	height:100%;
+	}
+
+	.texto-numero-tabla {
+	font: bold 100% 'Arial';
+	background:transparent;
+	color:#222222;
+	zoom:1;
+	margin-top:7px;
+	text-align:center;
+	-webkit-text-shadow: 0px 0px 3px #ffffff;
+	-moz-text-shadow: 0px 0px 3px #ffffff;
+	-o-text-shadow: 0px 0px 3px #ffffff;
+	text-shadow: 0px 0px 3px #ffffff;
+	}
+
+	/* objeto */
+	.botones-abajo {
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:100%;
+	height:100%;
+	}
+
+	.texto-botones-abajo {
+	font: bold 14px 'Arial';
+	background:transparent;
+	color:#FFFFFF;
+	zoom:1;
+	margin-top:7px;
+	text-align:center;
+	-webkit-text-shadow: 0px 0px 3px #ffffff;
+	-moz-text-shadow: 0px 0px 3px #ffffff;
+	-o-text-shadow: 0px 0px 3px #ffffff;
+	text-shadow: 0px 0px 3px #ffffff;
+	}
+
+	.DESCRIPCION {
+	padding:3px;
+	position: absolute;
+	top:35px;
+	font: bold 1.3em 'Arial';
+	color:#ffffff;
+	background:#000000;
+	-webkit-opacity:0;
+	-moz-opacity:0;
+	-o-opacity:0;
+	opacity:0;
+	-webkit-transition: all 0.3s linear 0s;
+	-moz-transition: all 0.3s linear 0s;
+	-o-transition: all 0.3s linear 0s;
+	transition: all 0.3s linear 0s;
+	-webkit-transform:rotateZ(90deg);
+	-moz-transform:rotateZ(90deg);
+	-o-transform:rotateZ(90deg);
+	transform:rotateZ(90deg);
+	cursor:pointer;
+	}
+
+	.DESCRIPCION_hover {
+	padding:3px;
+	position: absolute;
+	top:-35px;
+	font: bold 1.3em 'Arial';
+	color:#ffffff;
+	background:#000000;
+	-webkit-opacity:1;
+	-moz-opacity:1;
+	-o-opacity:1;
+	opacity:1;
+	-webkit-transition: all 0.3s linear 0s;
+	-moz-transition: all 0.3s linear 0s;
+	-o-transition: all 0.3s linear 0s;
+	transition: all 0.3s linear 0s;
+	cursor:pointer;
+	-webkit-transform:rotateZ(0deg);
+	-moz-transform:rotateZ(0deg);
+	-o-transform:rotateZ(0deg);
+	transform:rotateZ(0deg);
+	}
+
+	/* objeto */
+	.bts-playpausereload {
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:100%;
+	height:100%;
+	}
+
+	.texto-bts-playpausereload {
+	font: bold 60px 'Arial';
+	background:transparent;
+	color:#ffffff;
+	zoom:1.4;
+	margin-top:-5px;
+	text-align:center;
+	-webkit-text-shadow: 0px 0px 3px #ffffff;
+	-moz-text-shadow: 0px 0px 3px #ffffff;
+	-o-text-shadow: 0px 0px 3px #ffffff;
+	text-shadow: 0px 0px 3px #ffffff;
+	cursor:pointer;
+	-webkit-transition: all 0.3s linear 0s;
+	-moz-transition: all 0.3s linear 0s;
+	-o-transition: all 0.3s linear 0s;
+	transition: all 0.3s linear 0s;
+	}
+
+	.texto-bts-playpausereload:hover {
+	font: bold 60px 'Arial';
+	background:transparent;
+	color:rgb(255,201,14);
+	-webkit-text-shadow: 0px 0px 3px #ffffff;
+	-moz-text-shadow: 0px 0px 3px #ffffff;
+	-o-text-shadow: 0px 0px 3px #ffffff;
+	text-shadow: 0px 0px 3px #ffffff;
+	cursor:pointer;
+	}
+
+	/* objeto */
+	.caja-balones {
+	margin:0px auto;
+	width:75%;
+	}
+
+	.click_balon {
+	cursor:pointer;
+	}
+
+	/* extra */
+	.CAJA-BALONES-CLASS {
+	position: relative;
+	width: 460px;
+	height: 350px;
+	background: transparent;
+	margin: 0px auto;
+	right:-40%;
+	/*
+	width: 31.6667%;
+	height: 47.619%;
+	*/
+	-webkit-transition: all 0.3s linear 0s;
+	-moz-transition: all 0.3s linear 0s;
+	-o-transition: all 0.3s linear 0s;
+	transition: all 0.3s linear 0s;
+	}
+
+	.TABLA-CLASS {
+	position: absolute;
+	width: 320px;
+	height: 520px;
+	background:
+	transparent;
+	left: 14%;
+	top: 10.9524%;
+	-webkit-transition: all 0.3s linear 0s;
+	-moz-transition: all 0.3s linear 0s;
+	-o-transition: all 0.3s linear 0s;
+	transition: all 0.3s linear 0s;
+	}
+
+	.BTS-PLAYPAUSERELOAD-CLASS {
+	position: absolute;
+	width: 300px;
+	height: 110px;
+	background: transparent;
+	left: 61.6667%;
+	top: 66.1905%;
+	-webkit-transition: all 0.3s linear 0s;
+	-moz-transition: all 0.3s linear 0s;
+	-o-transition: all 0.3s linear 0s;
+	transition: all 0.3s linear 0s;
+	}
+
+	.BOTONES-ABAJO-CLASS {
+	position: absolute;
+	width: 300px;
+	height: 100px;
+	background: transparent;
+	left: 40.6667%;
+	top: 84.7619%;
+	}
+
+	.MENU-CLASS {
+	position: absolute;
+	width: 8.3333%;
+	height: 45.8095%;
+	background: transparent;
+	overflow: hidden;
+	left: 0%;
+	top: 10.4762%;
+	}
+
+	.BOTON_PANTALLA_MOVIL_RIGHT {
+	text-align:center;
+	border-radius:0px 20% 20% 0px;
+	position: absolute;
+	width: 95.3333%;
+	height: 30.2381%;
+	background: #000000;
+	overflow: hidden;
+	left: 0.333333%;
+	top: 70.7619%;
+	cursor:pointer;
+	display:none;
+	}
+
+	/* MOSTRAR TABLA */
+
+	.TABLA-CLASS_SHOW {
+		width: 270px;
+		height: 480px;
+		background:transparent;
+		top: 5.9524%;
+		opacity:1;
+		position:relative !important;
+		margin:0px auto !important;
+		left:auto;
+		right:-10%;
+		margin-bottom:10px;
+		-webkit-transition: all 0.3s linear 0s;
+		-moz-transition: all 0.3s linear 0s;
+		-o-transition: all 0.3s linear 0s;
+		transition: all 0.3s linear 0s;
+	}
+	.CAJA-BALONES-CLASS_SHOW {
+		display:none;
+		position:relative !important;
+		margin:0px auto !important;
+		-webkit-transition: all 0.3s linear 0s;
+		-moz-transition: all 0.3s linear 0s;
+		-o-transition: all 0.3s linear 0s;
+		transition: all 0.3s linear 0s;
+	}
+	.BTS-PLAYPAUSERELOAD-CLASS_SHOW {
+		display:none;
+		position:relative !important;
+		margin:0px auto !important;
+		left: auto;
+		width: 300px;
+		height: 100px;
+		-webkit-transition: all 0.3s linear 0s;
+		-moz-transition: all 0.3s linear 0s;
+		-o-transition: all 0.3s linear 0s;
+		transition: all 0.3s linear 0s;
+	}
+	.BOTONES-ABAJO-CLASS_SHOW {
+		position:relative !important;
+		margin:0px auto !important;
+		left: auto;
+		top:auto;
+		bottom: -40px;
+		width: 300px;
+		height: 100px;
+	}
+	.MENU-CLASS_SHOW {
+		position: absolute;
+		background: transparent;
+		overflow: hidden;
+		left: 0%;
+		top: 10.4762%;
+		width: 80px;
+		height: 36.8095%;
+		z-index:9999;
+	}
+	.MENU-ESCONDIDO-SHOW {
+	position:fixed;
+	left:0px;
+	top:0px;
+	width:340px;
+	height:100%;
+	background:rgba(255,201,14,0.5);
+	z-index:9999;
+	overflow:auto;
+	-webkit-transition: all 0.3s linear 0s;
+	-moz-transition: all 0.3s linear 0s;
+	-o-transition: all 0.3s linear 0s;
+	transition: all 0.3s linear 0s;
+	}
+	.MENU-ESCONDIDO {
+	position:fixed;
+	left:0px;
+	top:0px;
+	width:0px;
+	height:100%;
+	background:rgba(255,201,14,0.5);
+	z-index:9999;
+	overflow:auto;
+	-webkit-transition: all 0.3s linear 0s;
+	-moz-transition: all 0.3s linear 0s;
+	-o-transition: all 0.3s linear 0s;
+	transition: all 0.3s linear 0s;
+	}
+	.MENU-CLASS-CORRER {
+	left:340px;
+	-webkit-transition: all 0.3s linear 0s;
+	-moz-transition: all 0.3s linear 0s;
+	-o-transition: all 0.3s linear 0s;
+	transition: all 0.3s linear 0s;
+	}
+	.MENU-CLASS-CORRER-ESCONDER {
+	left:0px;
+	-webkit-transition: all 0.3s linear 0s;
+	-moz-transition: all 0.3s linear 0s;
+	-o-transition: all 0.3s linear 0s;
+	transition: all 0.3s linear 0s;
+	}
+	/* FIN MOSTRAR TABLA */
+
+	@media screen and (max-width:1085px) {
+		.CAJA-BALONES-CLASS {
+		position: relative;
+		width: 360px !important;
+		height: 250px !important;
+		background: transparent;
+		margin: 0px auto;
+		right:-30%;
+
+		/*
+		width: 31.6667%;
+		height: 47.619%;
+		*/
+		-webkit-transition: all 0.3s linear 0s;
+		-moz-transition: all 0.3s linear 0s;
+		-o-transition: all 0.3s linear 0s;
+		transition: all 0.3s linear 0s;
+		}
+	}
+	@media screen and (max-width:918px) {
+		.texto-bts-playpausereload {
+		font-size:50px;
+		padding-top:5px;
+		transition: all 0.3s linear 0s;
+		}
+		.texto-bts-playpausereload:hover {
+		font-size:50px;
+		padding-top:5px;
+		transition: all 0.3s linear 0s;
+		}
+	}
+	@media screen and (max-width:810px) {
+		.BOTON_PANTALLA_MOVIL_RIGHT {
+		display:block;
+		}
+		.TABLA-CLASS {
+		opacity:0;
+		-webkit-transition: all 0.3s linear 0s;
+		-moz-transition: all 0.3s linear 0s;
+		-o-transition: all 0.3s linear 0s;
+		transition: all 0.3s linear 0s;
+		}
+		.CAJA-BALONES-CLASS {
+
+		}
+		.CAJA-BALONES-CLASS {
+
+		-webkit-transition: all 0.3s linear 0s;
+		-moz-transition: all 0.3s linear 0s;
+		-o-transition: all 0.3s linear 0s;
+		transition: all 0.3s linear 0s;
+		}
+		.BTS-PLAYPAUSERELOAD-CLASS {
+		position:relative !important;
+		margin:0px auto !important;
+		left: auto;
+		width: 300px;
+		height: 100px;
+		-webkit-transition: all 0.3s linear 0s;
+		-moz-transition: all 0.3s linear 0s;
+		-o-transition: all 0.3s linear 0s;
+		transition: all 0.3s linear 0s;
+		}
+		.BOTONES-ABAJO-CLASS {
+		display:none;
+		}
+		.MENU-CLASS {
+		width: 100px;
+		height: 35.8095%;
+		z-index:9999;
+		}
+		.MENU-ESCONDIDO-SHOW { /* OBLIGAR AL MENU A MANTENER EL TAMAÑO */
+		position:fixed;
+		left:0px;
+		top:0px;
+		width:75%;
+		height:100%;
+		background:rgba(255,201,14,0.5);
+		z-index:9999;
+		overflow:auto;
+		-webkit-transition: all 0.3s linear 0s;
+		-moz-transition: all 0.3s linear 0s;
+		-o-transition: all 0.3s linear 0s;
+		transition: all 0.3s linear 0s;
+		}
+		.MENU-CLASS-CORRER {
+		left:75%;
+		-webkit-transition: all 0.3s linear 0s;
+		-moz-transition: all 0.3s linear 0s;
+		-o-transition: all 0.3s linear 0s;
+		transition: all 0.3s linear 0s;
+		}
+	}
+	@media screen and (max-width:560px) {
+		.CAJA-BALONES-CLASS {
+
+		}
+		.MENU-CLASS {
+		width: 80px;
+		height: 36.8095%;
+		z-index:9999;
+		}
+	}
+	/* IF DE LA ALTURA */
+
+	@media screen and (max-height:1024px) {
+		html {
+		zoom:1.4 !important;
+		}
+	}
+	@media screen and (max-height:833px) {
+		html {
+		zoom:1.1 !important;
+		}
+	}
+	@media screen and (max-height:812px) {
+		html {
+		zoom:1 !important;
+		}
+	}
+	@media screen and (max-height:720px) {
+		html {
+		zoom:1.0 !important;
+		}
+	}
+	@media screen and (max-height:640px) {
+		html {
+		zoom:1 !important;
+		}
+	}
+	@media screen and (max-height:568px) {
+		html {
+		zoom:0.9 !important;
+		}
+	}
+	@media screen and (max-width:280px) {
+		html {
+		zoom:0.8 !important;
+		}
+	}
+	@media screen and (min-width:1024px) and (min-height:1366px) {
+		html {
+		zoom:1.2 !important;
+		}
+	}
+
+</style>
+</head>
+<body >
+	<section class="content-ganador" id="content-ganador">
+		<div class="ganadores-items" id="ganadores-items" style="margin-bottom:20px;"></div>
+		{% if user.is_superuser  %}
+			<a href="Javascript:reload();void(0);" style="background:green;color:#FFFFFF;padding:5px 10px;text-decoration:none;">Cerrar</a>	
+		{% endif %}
+	</section>
+	<div class="contenedor">
+		<div style="position:relative;left:0px;top:0px;width:100%;height:100%;text-align:center;">
+			<div class="DIV-MENU-ZOOM">
+					<!-- menu //-->
+					<div class="MENU-CLASS" style="z-index:9999;">
+						<div style="position:absolute;left:0px;top:0px;width:100%;height:100%;">
+										<div class="menu">
+											<div id="menu" style="position:relative;left:0px;top:0px;width:100%;height:100%;text-align:left;">
+												<div class="BOTON_PANTALLA_MOVIL_RIGHT">
+													<div id="BOTON_PANTALLA_MOVIL" style="font: bold 4em 'Arial';color:#ffffff;">⎘</div>
+												</div>
+											</div>
+										</div>
+						</div>
+					</div>
+					<div id="MENU-CLASS" class="MENU-CLASS" style="z-index:9999;">
+						<div style="position:absolute;left:0px;top:0px;width:100%;height:100%;">
+										<div class="menu">
+											<div id="menu" style="position:relative;left:0px;top:0px;width:100%;height:100%;text-align:left;">
+												<div id="MENU_B0" style="border-radius:0px 20% 20% 0px; position: absolute; width: 95%; height: 30.4762%; background: #000000; overflow: hidden; left: 0.333333%; top: 1.19048%;cursor:pointer;">
+													<img src="{% static 'table-icon.png' %}" style="position:absolute;left:7%;top:7%;width:80%;height:80%;"></img>
+												</div>
+											</div>
+										</div>
+						</div>
+					</div>
+					<div id="MENU-CLASS-2" class="MENU-CLASS" style="z-index:9999;">
+						<div style="position:absolute;left:0px;top:0px;width:100%;height:100%;">
+										<div class="menu">
+											<div id="menu" style="position:relative;left:0px;top:0px;width:100%;height:100%;text-align:left;">
+												<div id="MENU_B0-2" style="border-radius:0px 20% 20% 0px; position: absolute; width: 95%; height: 30.4762%; background: transparent; overflow: hidden; left: 0.333333%; top: 1.19048%;cursor:pointer;">
+
+												</div>
+												<div id="MENU_B1" style="border-radius:0px 20% 20% 0px; position: absolute; width: 0px/*95.3333%*/; height: 30.2381%; background: transparent; overflow: hidden; left: 0.333333%; top: 34.7619%;cursor:pointer;">
+													
+												</div>
+												<div id="BOTON_PANTALLA_MOVIL_RIGHT" class="BOTON_PANTALLA_MOVIL_RIGHT" style="background: transparent;">
+
+												</div>
+											</div>
+										</div>
+						</div>
+					</div>
+					<!-- MENU ESCONDIDO //-->
+					<!-- PERTENESE A MENU_B0 //-->
+					<div id="MENU-ESCONDIDO" class="MENU-ESCONDIDO">
+
+						<input type="text" id="dni-cliente" placeholder="ID CLIENTE">
+						<button class="btn-panel" id="dni-panel">Buscar</button>
+						<div class="cards-panel" id="cards-panel"></div>
+			
+					</div>
+					<!-- PERTENESE A MENU_B1 //-->
+					<div id="MENU-ESCONDIDO-2" class="MENU-ESCONDIDO">
+						<div class="cards-panel">
+							<h4 style="color:black">Tablas Vendidas</h4>
+							{% for r in revendedores  %}
+								<div class="seller">
+									<h5>{{r.user.username}}</h5>
+									<div class="seller-content">
+										<label>Vendidos:</label> <strong>{{r.vendidos}}</strong>
+										<h4>{{r.user.userprofile.state}} - {{r.user.userprofile.city}}</h4>
+									</div>
+								</div>					
+							{% endfor %}
+						</div>
+					</div>
+			</div>
+			<!-- tabla //-->
+			<div id="TABLA-CLASS" class="TABLA-CLASS" style="">
+				<div style="position:absolute;left:0px;top:0px;width:100%;height:100%;">
+								<div class="tabla">
+									<div id="tabla" style="position:relative;left:0px;top:0px;width:100%;height:100%;text-align:left;">
+									<img id="CARTON" src="/media/{{config.fondo_tablero_bingo_75}}" style="position:absolute;left:0px;top:0px;width:100%;height:100%;">
+									<div  style="position: absolute; width: 18%; height: 5%; background: transparent; overflow: hidden; left: 7%; top: 18.8095%;"><div class="texto-numero-tabla" name="tabla" id="numero1">0</div></div><div  style="position: absolute; width: 18%; height: 5%; background: transparent; overflow: hidden; left: 7%; top: 24.0476%;"><div class="texto-numero-tabla" name="tabla" id="numero2">0</div></div><div  style="position: absolute; width: 18%; height: 5%; background: transparent; overflow: hidden; left: 7%; top: 29.2857%;"><div class="texto-numero-tabla" name="tabla" id="numero3">0</div></div><div  style="position: absolute; width: 18%; height: 5%; background: transparent; overflow: hidden; left: 7%; top: 34.5238%;"><div class="texto-numero-tabla" name="tabla" id="numero4">0</div></div><div  style="position: absolute; width: 18%; height: 5%; background: transparent; overflow: hidden; left: 7%; top: 39.7619%;"><div class="texto-numero-tabla" name="tabla" id="numero5">0</div></div><div  style="position: absolute; width: 18%; height: 5%; background: transparent; overflow: hidden; left: 7%; top: 45%;"><div class="texto-numero-tabla" name="tabla" id="numero6">0</div></div><div  style="position: absolute; width: 18%; height: 5%; background: transparent; overflow: hidden; left: 7%; top: 50.2381%;"><div class="texto-numero-tabla" name="tabla" id="numero7">0</div></div><div  style="position: absolute; width: 18%; height: 5%; background: transparent; overflow: hidden; left: 7%; top: 55.4762%;"><div class="texto-numero-tabla" name="tabla" id="numero8">0</div></div><div  style="position: absolute; width: 18%; height: 5%; background: transparent; overflow: hidden; left: 7%; top: 60.7143%;"><div class="texto-numero-tabla" name="tabla" id="numero9">0</div></div><div  style="position: absolute; width: 18%; height: 5%; background: transparent; overflow: hidden; left: 7%; top: 65.9524%;"><div class="texto-numero-tabla" name="tabla" id="numero10">0</div></div><div  style="position: absolute; width: 18%; height: 5%; background: transparent; overflow: hidden; left: 7%; top: 71.1905%;"><div class="texto-numero-tabla" name="tabla" id="numero11">0</div></div><div  style="position: absolute; width: 18%; height: 5%; background: transparent; overflow: hidden; left: 7%; top: 76.4286%;"><div class="texto-numero-tabla" name="tabla" id="numero12">0</div></div><div  style="position: absolute; width: 18%; height: 5%; background: transparent; overflow: hidden; left: 7%; top: 81.6667%;"><div class="texto-numero-tabla" name="tabla" id="numero13">0</div></div><div  style="position: absolute; width: 18%; height: 5%; background: transparent; overflow: hidden; left: 7%; top: 86.9048%;"><div class="texto-numero-tabla" name="tabla" id="numero14">0</div></div><div  style="position: absolute; width: 18%; height: 5%; background: transparent; overflow: hidden; left: 7%; top: 92.1429%;"><div class="texto-numero-tabla" name="tabla" id="numero15">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 25.3333%; top: 18.8095%;"><div class="texto-numero-tabla" name="tabla" id="numero16">0</div></div><div  style="position: absolute; width: 16.3333%; height: 5%; background: transparent; overflow: hidden; left: 25.6667%; top: 24.0476%;"><div class="texto-numero-tabla" name="tabla" id="numero17">0</div></div><div  style="position: absolute; width: 16.3333%; height: 5%; background: transparent; overflow: hidden; left: 25.6667%; top: 29.2857%;"><div class="texto-numero-tabla" name="tabla" id="numero18">0</div></div><div  style="position: absolute; width: 16.3333%; height: 5%; background: transparent; overflow: hidden; left: 25.6667%; top: 34.5238%;"><div class="texto-numero-tabla" name="tabla" id="numero19">0</div></div><div  style="position: absolute; width: 16.3333%; height: 5%; background: transparent; overflow: hidden; left: 25.6667%; top: 39.7619%;"><div class="texto-numero-tabla" name="tabla" id="numero20">0</div></div><div  style="position: absolute; width: 16.3333%; height: 5%; background: transparent; overflow: hidden; left: 25.6667%; top: 45%;"><div class="texto-numero-tabla" name="tabla" id="numero21">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 25.3333%; top: 50.2381%;"><div class="texto-numero-tabla" name="tabla" id="numero22">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 25.3333%; top: 55.4762%;"><div class="texto-numero-tabla" name="tabla" id="numero23">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 25.3333%; top: 60.7143%;"><div class="texto-numero-tabla" name="tabla" id="numero24">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 25.3333%; top: 65.9524%;"><div class="texto-numero-tabla" name="tabla" id="numero25">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 25.3333%; top: 71.1905%;"><div class="texto-numero-tabla" name="tabla" id="numero26">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 25.3333%; top: 76.4286%;"><div class="texto-numero-tabla" name="tabla" id="numero27">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 25.3333%; top: 81.6667%;"><div class="texto-numero-tabla" name="tabla" id="numero28">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 25.3333%; top: 86.9048%;"><div class="texto-numero-tabla" name="tabla" id="numero29">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 25.3333%; top: 92.1429%;"><div class="texto-numero-tabla" name="tabla" id="numero30">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 42.6667%; top: 18.8095%;"><div class="texto-numero-tabla" name="tabla" id="numero31">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 42.6667%; top: 24.0476%;"><div class="texto-numero-tabla" name="tabla" id="numero32">0</div></div><div  style="position: absolute; width: 17%; height: 5%; background: transparent; overflow: hidden; left: 42.3333%; top: 29.2857%;"><div class="texto-numero-tabla" name="tabla" id="numero33">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 42.6667%; top: 34.5238%;"><div class="texto-numero-tabla" name="tabla" id="numero34">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 42.6667%; top: 39.7619%;"><div class="texto-numero-tabla" name="tabla" id="numero35">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 42.6667%; top: 45.0381%;"><div class="texto-numero-tabla" name="tabla" id="numero36">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 42.6667%; top: 50.2381%;"><div class="texto-numero-tabla" name="tabla" id="numero37">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 42.6667%; top: 55.4762%;"><div class="texto-numero-tabla" name="tabla" id="numero38">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 42.6667%; top: 60.7143%;"><div class="texto-numero-tabla" name="tabla" id="numero39">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 42.6667%; top: 65.9524%;"><div class="texto-numero-tabla" name="tabla" id="numero40">0</div></div><div  style="position: absolute; width: 17%; height: 5%; background: transparent; overflow: hidden; left: 42.3333%; top: 71.1905%;"><div class="texto-numero-tabla" name="tabla" id="numero41">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 42.6667%; top: 76.4286%;"><div class="texto-numero-tabla" name="tabla" id="numero42">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 42.6667%; top: 81.6667%;"><div class="texto-numero-tabla" name="tabla" id="numero43">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 42.6667%; top: 86.9048%;"><div class="texto-numero-tabla" name="tabla" id="numero44">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 42.6667%; top: 92.1429%;"><div class="texto-numero-tabla" name="tabla" id="numero45">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 59.6667%; top: 18.8095%;"><div class="texto-numero-tabla" name="tabla" id="numero46">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 59.6667%; top: 24.0476%;"><div class="texto-numero-tabla" name="tabla" id="numero47">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 59.6667%; top: 29.2857%;"><div class="texto-numero-tabla" name="tabla" id="numero48">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 59.6667%; top: 34.5238%;"><div class="texto-numero-tabla" name="tabla" id="numero49">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 59.6667%; top: 39.7619%;"><div class="texto-numero-tabla" name="tabla" id="numero50">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 59.6667%; top: 45%;"><div class="texto-numero-tabla" name="tabla" id="numero51">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 59.6667%; top: 50.2381%;"><div class="texto-numero-tabla" name="tabla" id="numero52">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 59.6667%; top: 55.4762%;"><div class="texto-numero-tabla" name="tabla" id="numero53">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 59.6667%; top: 60.7143%;"><div class="texto-numero-tabla" name="tabla" id="numero54">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 59.6667%; top: 65.9524%;"><div class="texto-numero-tabla" name="tabla" id="numero55">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 59.6667%; top: 71.1905%;"><div class="texto-numero-tabla" name="tabla" id="numero56">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 59.6667%; top: 76.4286%;"><div class="texto-numero-tabla" name="tabla" id="numero57">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 59.6667%; top: 81.6667%;"><div class="texto-numero-tabla" name="tabla" id="numero58">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 59.6667%; top: 86.9048%;"><div class="texto-numero-tabla" name="tabla" id="numero59">0</div></div><div  style="position: absolute; width: 16.6667%; height: 5%; background: transparent; overflow: hidden; left: 59.6667%; top: 92.1429%;"><div class="texto-numero-tabla" name="tabla" id="numero60">0</div></div><div  style="position: absolute; width: 17.3333%; height: 5%; background: transparent; overflow: hidden; left: 77%; top: 18.8095%;"><div class="texto-numero-tabla" name="tabla" id="numero61">0</div></div><div  style="position: absolute; width: 17.3333%; height: 5%; background: transparent; overflow: hidden; left: 77%; top: 24.0476%;"><div class="texto-numero-tabla" name="tabla" id="numero62">0</div></div><div  style="position: absolute; width: 17.3333%; height: 5%; background: transparent; overflow: hidden; left: 77%; top: 29.2857%;"><div class="texto-numero-tabla" name="tabla" id="numero63">0</div></div><div  style="position: absolute; width: 17.3333%; height: 5%; background: transparent; overflow: hidden; left: 77%; top: 34.5238%;"><div class="texto-numero-tabla" name="tabla" id="numero64">0</div></div><div  style="position: absolute; width: 17.3333%; height: 5%; background: transparent; overflow: hidden; left: 77%; top: 39.7619%;"><div class="texto-numero-tabla" name="tabla" id="numero65">0</div></div><div  style="position: absolute; width: 17.3333%; height: 5%; background: transparent; overflow: hidden; left: 77%; top: 45%;"><div class="texto-numero-tabla" name="tabla" id="numero66">0</div></div><div  style="position: absolute; width: 17.3333%; height: 5%; background: transparent; overflow: hidden; left: 77%; top: 50.2381%;"><div class="texto-numero-tabla" name="tabla" id="numero67">0</div></div><div  style="position: absolute; width: 17.3333%; height: 5%; background: transparent; overflow: hidden; left: 77%; top: 55.4762%;"><div class="texto-numero-tabla" name="tabla" id="numero68">0</div></div><div  style="position: absolute; width: 17.3333%; height: 5%; background: transparent; overflow: hidden; left: 77%; top: 60.7143%;"><div class="texto-numero-tabla" name="tabla" id="numero69">0</div></div><div  style="position: absolute; width: 17.3333%; height: 5%; background: transparent; overflow: hidden; left: 77%; top: 65.9524%;"><div class="texto-numero-tabla" name="tabla" id="numero70">0</div></div><div  style="position: absolute; width: 17.3333%; height: 5%; background: transparent; overflow: hidden; left: 77%; top: 71.1905%;"><div class="texto-numero-tabla" name="tabla" id="numero71">0</div></div><div  style="position: absolute; width: 17.3333%; height: 5%; background: transparent; overflow: hidden; left: 77%; top: 76.4286%;"><div class="texto-numero-tabla" name="tabla" id="numero72">0</div></div><div  style="position: absolute; width: 17.3333%; height: 5%; background: transparent; overflow: hidden; left: 77%; top: 81.6667%;"><div class="texto-numero-tabla" name="tabla" id="numero73">0</div></div><div  style="position: absolute; width: 17.3333%; height: 5%; background: transparent; overflow: hidden; left: 77%; top: 86.9048%;"><div class="texto-numero-tabla" name="tabla" id="numero74">0</div></div><div  style="position: absolute; width: 17.3333%; height: 5%; background: transparent; overflow: hidden; left: 77%; top: 92.1429%;"><div class="texto-numero-tabla" name="tabla" id="numero75">0</div></div></div>
+								</div>
+				</div>
+			</div>
+			<!-- botones de abajo //-->
+			<div id="BOTONES-ABAJO-CLASS" class="BOTONES-ABAJO-CLASS" style="z-index:9999;">
+				<div style="position:absolute;left:0px;top:0px;width:100%;height:100%;">
+								<div class="botones-abajo">
+									<div id="botones-abajo" style="position:relative;left:0px;top:0px;width:100%;height:100%;text-align:left;">
+										<div id="boton-abajo0" style="border-radius: 55%; position: absolute; width: 26%; height: 73.5714%; background: black; left: 11.3333%; top: 18.3333%;">
+											<div class="texto-botones-abajo"></div>
+											<div id="descripcion_1" class="DESCRIPCION">NUMERO PARTIDA</div>
+										</div>
+										<div id="boton-abajo1" style="border-radius: 55%; position: absolute; width: 25.3333%; height: 75.7143%; background: black; left: 38%; top: 16.6667%;">
+											<div class="texto-botones-abajo"></div>
+											<div id="descripcion_2" class="DESCRIPCION">CARTONES EN JUEGO</div>
+										</div>
+										<div id="boton-abajo2" style="border-radius: 55%; position: absolute; width: 24%; height: 72.8571%; background: black; left: 64%; top: 20%;">
+											<div class="texto-botones-abajo"></div>
+											<div id="descripcion_3" class="DESCRIPCION">BALOTAS JUGADAS</div>
+										</div>
+										<div id="boton-abajo3" style="border-radius: 0%; position: absolute; width: 23.6667%; height: 32.8571%; border:1px solid transparent; background: transparent; overflow: hidden; left: 12%; top: 23.5714%;">
+											<div class="texto-botones-abajo" style="zoom:1;font-size:28px;">P</div>
+										</div>
+										<div id="boton-abajo4" style="border-radius: 0%; position: absolute; width: 24.3333%; height: 34.0476%; border:1px solid transparent; background: transparent; overflow: hidden; left: 38.6667%; top: 23.8095%;">
+											<div class="texto-botones-abajo" style="zoom:1;font-size:28px;">C</div>
+										</div>
+										<div id="boton-abajo5" style="border-radius: 0%; position: absolute; width: 23.3333%; height: 33.8095%; border:1px solid transparent; background: transparent; overflow: hidden; left: 64.3333%; top: 24.0476%;">
+											<div class="texto-botones-abajo" style="zoom:1;font-size:28px;">J</div>
+										</div>
+										<div id="boton-abajo6" style="border-radius: 0%; position: absolute; width: 24.3333%; height: 28.0952%; border-top:3px solid white; background: transparent; overflow: hidden; left: 12%; top: 60.7143%;">
+											<div class="texto-botones-abajo">{{partidanum}}</div>
+										</div>
+										<div id="boton-abajo8" style="border-radius: 0%; position: absolute; width: 24.6667%; height: 28.3333%; border-top:3px solid white; background: transparent; overflow: hidden; left: 38.3333%; top: 60.4762%;">
+											<div class="texto-botones-abajo">{{cartonvendidos}}</div>
+										</div>
+										<div id="boton-abajo9" style="border-radius: 0%; position: absolute; width: 23.6667%; height: 28.0952%; border-top:3px solid white; background: transparent; overflow: hidden; left: 64%; top: 60.7143%;">
+											<div class="texto-botones-abajo" id="balotasJugadas">{{balotasJugadas}}</div>
+										</div>
+									</div>
+								</div>
+				</div>
+			</div>
+			<!-- botones balones //-->
+			<div style="position:fixed;left:25%;top:0px;width:75%;height:100%;padding-top:130px;background:transparent;text-align: center;">
+
+			<div id="CAJA-BALONES-CLASS" class="CAJA-BALONES-CLASS" >
+				<div style="position:absolute;left:0px;top:0px;width:100%;height:100%;">
+								<div class="caja-balones">
+									<div id="caja-balones" style="position:relative;left:-130px;top:0px;width:100%;height:100%;text-align:left;">
+										<!-- grande //-->
+										<div style="border-radius: 55%; position: absolute; width: 57.6667%; height: 57.619%; background: transparent; overflow: hidden; left: 27%; top: 0%;">
+											<div id="boton-balon0" class="click_balon" ><img id="balotaE" src="/media/{{config.tapa_balota_bingo}}" style="position:absolute;left:0px;top:0px;width:100%;height:100%;"></div>
+										</div>
+										<!-- arriba y a la izquierda es el primero sigue de manera secuencial //-->
+										<div style="border-radius: 55%; position: absolute; width: 27.6667%; height: 27.381%; background: transparent; overflow: hidden; left: -0.333333%; top: 0.238095%;">
+											<div id="boton-balon1" class="click_balon" ><img id="ultima1" src="{% static 'Pack75bolas/ultima1.png' %}" style="position:absolute;left:0px;top:0px;width:100%;height:100%;"></div>
+										</div>
+										<div style="border-radius: 55%; position: absolute; width: 28%; height: 28.3333%; background: transparent; overflow: hidden; left: -0.666667%; top: 29.2857%;">
+											<div id="boton-balon2" class="click_balon" ><img id="ultima2" src="{% static 'Pack75bolas/ultima2.png' %}" style="position:absolute;left:0px;top:0px;width:100%;height:100%;"></div>
+										</div>
+										<div style="border-radius: 55%; position: absolute; width: 28%; height: 27.619%; background: transparent; overflow: hidden; left: 17.6667%; top: 52.8571%;">
+											<div id="boton-balon3" class="click_balon" ><img id="ultima3" src="{% static 'Pack75bolas/ultima3.png' %}" style="position:absolute;left:0px;top:0px;width:100%;height:100%;"></div>
+										</div>
+										<div style="border-radius: 55%; position: absolute; width: 27.3333%; height: 28.0952%; background: transparent; overflow: hidden; left: 46.3333%; top: 59.5238%;">
+											<div id="boton-balon4" class="click_balon" ><img id="ultima4" src="{% static 'Pack75bolas/ultima4.png' %}" style="position:absolute;left:0px;top:0px;width:100%;height:100%;"></div>
+										</div>
+										<div style="border-radius: 55%; position: absolute; width: 28.3333%; height: 28.8095%; background: transparent; overflow: hidden; left: 73%; top: 47.619%;">
+											<div id="boton-balon5" class="click_balon" ><img id="ultima5" src="{% static 'Pack75bolas/ultima5.png' %}" style="position:absolute;left:0px;top:0px;width:100%;height:100%;"></div>
+										</div>
+									</div>
+								</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<audio id="audio" src = "" type="audio/mp3" >
+	</audio>
+	
+	<audio id="bell" src = "{% static 'sound/bell.mp3' %}" type="audio/mp3" >
+	</audio>	
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script type="text/javascript">
+	//objetos
+	numeroE  = 0;
+
+ 	var Sigue = true;
+	//document.oncontextmenu = function(){return false;};
+  	myAudio=document.getElementById('audio');
+
+	//cargar numeros
+	for(i=1;i<76;i++){
+		document.getElementById("numero"+i).innerHTML = i;
+	}
+	//ultimas 5
+	{% if ultimas5.0.balota %}
+		$("#ultima1").attr("src", '/static/Pack75bolas/bola{{ultimas5.0.balota}}.png');
+	{% endif %}
+	{% if ultimas5.1.balota %}
+		$("#ultima2").attr("src", '/static/Pack75bolas/bola{{ultimas5.1.balota}}.png');
+	{% endif %}
+	{% if ultimas5.2.balota %}
+		$("#ultima3").attr("src", '/static/Pack75bolas/bola{{ultimas5.2.balota}}.png');
+	{% endif %}
+	{% if ultimas5.3.balota %}
+		$("#ultima4").attr("src", '/static/Pack75bolas/bola{{ultimas5.3.balota}}.png');
+	{% endif %}
+	{% if ultimas5.4.balota %}
+		$("#ultima5").attr("src", '/static/Pack75bolas/bola{{ultimas5.4.balota}}.png');
+	{% endif %}
+
+	{% if user.userprofile.user_type == 'Usuario' %}
+	$.get('/partidas/75/cards-panel/{{partidanum}}/{{idCliente}}/',function(data){
+				document.getElementById('cards-panel').innerHTML = data;
+		});
+		document.getElementById("dni-panel").style.display = 'none'; 
+		document.getElementById("dni-cliente").style.display = 'none'; 
+	{% endif %}	 
+
+	//balotas jugadas en tablero
+	{% for n in numeros  %}
+	document.getElementById("numero{{n.balota}}").style.color = 'red';
+	{% endfor %}
+
+	/// menu
+	document.getElementById("MENU_B0").addEventListener("click",function() { MostrarMenuEscondido("");  },false);
+	document.getElementById("MENU_B0").addEventListener("touchstart",function() { MostrarMenuEscondido(""); },false);
+
+	document.getElementById("MENU_B0-2").addEventListener("click",function() { MostrarMenuEscondido("");  },false);
+	document.getElementById("MENU_B0-2").addEventListener("touchstart",function() { MostrarMenuEscondido(""); },false);
+
+	document.getElementById("MENU_B1").addEventListener("click",function() { MostrarMenuEscondido("-2");  },false);
+	document.getElementById("MENU_B1").addEventListener("touchstart",function() { MostrarMenuEscondido("-2");  },false);
+
+	/// mostrar menu
+	function MostrarMenuEscondido(add) {
+
+		if( document.getElementById("MENU-ESCONDIDO"+add).className == "MENU-ESCONDIDO" ) {
+			document.getElementById("MENU-ESCONDIDO"+add).className = "MENU-ESCONDIDO-SHOW";
+			var cont = document.getElementById("MENU-CLASS"+add).className;
+			var separar = cont.split(" ");
+			if( separar.length >= 2 ) {
+				document.getElementById("MENU-CLASS"+add).className = separar[0]+" MENU-CLASS-CORRER";
+			}else{
+				document.getElementById("MENU-CLASS"+add).className = cont+" MENU-CLASS-CORRER";
+			}
+			document.getElementById("MENU_B0-2").style.display="none";
+			document.getElementById("BOTON_PANTALLA_MOVIL_RIGHT").style.display="none";
+		}else{
+			document.getElementById("MENU-ESCONDIDO"+add).className = "MENU-ESCONDIDO";
+			var cont = document.getElementById("MENU-CLASS"+add).className;
+			var separar = cont.split(" ");
+			document.getElementById("MENU-CLASS"+add).className = separar[0]+" MENU-CLASS-CORRER-ESCONDER";
+			document.getElementById("MENU_B0-2").style.display="block";
+			document.getElementById("BOTON_PANTALLA_MOVIL_RIGHT").style.display="block";
+		}
+	}
+
+	document.getElementById("BOTON_PANTALLA_MOVIL_RIGHT").addEventListener("click",function() { MostrarOcultar(); },false);
+	document.getElementById("BOTON_PANTALLA_MOVIL_RIGHT").addEventListener("touchstart",function() { MostrarOcultar(); },false);
+
+
+	function MostrarOcultar() {
+
+		if( document.getElementById("BOTON_PANTALLA_MOVIL").innerText == "⎘" ) {
+			document.getElementById("TABLA-CLASS").className = "TABLA-CLASS_SHOW";
+			document.getElementById("CAJA-BALONES-CLASS").className = "CAJA-BALONES-CLASS_SHOW";
+			document.getElementById("BOTONES-ABAJO-CLASS").className = "BOTONES-ABAJO-CLASS_SHOW";
+			document.getElementById("MENU-CLASS").className = "MENU-CLASS_SHOW";
+			document.getElementById("BOTON_PANTALLA_MOVIL").innerText = "⎗";
+		}else{
+			document.getElementById("TABLA-CLASS").className = "TABLA-CLASS";
+			document.getElementById("CAJA-BALONES-CLASS").className = "CAJA-BALONES-CLASS";
+			document.getElementById("BOTONES-ABAJO-CLASS").className = "BOTONES-ABAJO-CLASS";
+			document.getElementById("MENU-CLASS").className = "MENU-CLASS";
+			document.getElementById("BOTON_PANTALLA_MOVIL").innerText = "⎘";
+		}
+	}
+
+
+	/// botones abajo
+	document.getElementById("boton-abajo3").addEventListener("mouseover",function() { botones(document.getElementById("descripcion_1")); },false);
+	document.getElementById("boton-abajo4").addEventListener("mouseover",function() { botones(document.getElementById("descripcion_2")); },false);
+	document.getElementById("boton-abajo5").addEventListener("mouseover",function() { botones(document.getElementById("descripcion_3")); },false);
+	document.getElementById("boton-abajo3").addEventListener("mouseout",function() { botones(document.getElementById("descripcion_1")); },false);
+	document.getElementById("boton-abajo4").addEventListener("mouseout",function() { botones(document.getElementById("descripcion_2")); },false);
+	document.getElementById("boton-abajo5").addEventListener("mouseout",function() { botones(document.getElementById("descripcion_3")); },false);
+
+	function botones(e) {
+		if( e.className == "DESCRIPCION") {
+			e.className = "DESCRIPCION_hover";
+		}else{
+			e.className = "DESCRIPCION";
+		}
+	}
+	
+//WEBSOCKET
+
+
+var loc = window.location;
+    var wsStart = "ws://";
+    if (loc.protocol == "https:"){
+        wsStart = "wss://";
+    }
+    var webSocketEndpoint =  wsStart + loc.host + '/notifications/partida/';  // ws : wss   // Websocket URL, Same on as mentioned in the routing.py
+    var socket = new WebSocket(webSocketEndpoint); // Creating a new Web Socket Connection
+    // Socket On receive message Functionality
+    socket.onmessage = function(e){
+        console.log('message', e);
+          data = JSON.parse(e.data);
+          if(data.reload == 'SI'){location.reload();return false;};
+		  if(data.ganador == 'termino'){
+                Sigue = false;
+                document.getElementById('ganadores-items').innerHTML = "<img src='/static/img/luego.jpg' width='50%' style='border-radius:30px;margin-top:100px;'>";
+                document.getElementById('content-ganador').style.display = 'block';
+                return false;
+            }
+		  if(data.ganador != 'none'){
+                Sigue = false;
+				document.getElementById('ganadores-items').innerHTML = data.ganador;
+                document.getElementById('content-ganador').style.display = 'block';
+			}
+			ultimas5 = data.ultimas5;
+			document.getElementById('numero' + data.balota).style.color = 'red';
+			numeroE = data.balota;
+			
+            if(document.getElementById("Num"+data.balota)){
+                document.getElementById("bell").play();
+				for(i=0;i<document.getElementsByName("Num"+data.balota).length;i++){
+					document.getElementsByName("Num"+data.balota)[i].style.color ='red';
+				}
+            }
+			document.getElementById('balotasJugadas').innerHTML = data.balotasJugadas;
+			myAudio.src = "/static/sonidos/NUM" + data.balota + ".wav";
+			myAudio.load();
+	       	$("#balotaE").attr("src", '/media/{{config.tapa_balota_bingo}}');
+
+
+    };
+    // Socket Connet Functionality
+    socket.onopen = function(e){
+       console.log('open',e);
+    };
+    // Socket Error Functionality
+    socket.onerror = function(e){
+        console.log('error',e);
+    };
+    // Socket close Functionality
+    socket.onclose = function(e){
+        console.log('closed',e);
+    };
+  //FIN WEBSOCKET
+
+
+
+
+myAudio.addEventListener('loadeddata',function() {
+		myAudio.play();
+});
+
+
+myAudio.addEventListener('ended',function() {
+	$("#balotaE").attr("src", '/static/Pack75bolas/bola' + numeroE + '.png');
+	//ULTIMAS 5
+    ultimas5 = JSON.parse(ultimas5);
+	$("#ultima1").attr("src", '/static/Pack75bolas/bola' + ultimas5[0].fields.balota + '.png');
+	if( ultimas5.length > 1)
+		$("#ultima2").attr("src", '/static/Pack75bolas/bola' + ultimas5[1].fields.balota + '.png');
+	if( ultimas5.length > 2)
+		$("#ultima3").attr("src", '/static/Pack75bolas/bola' + ultimas5[2].fields.balota + '.png');
+	if( ultimas5.length > 3)
+		$("#ultima4").attr("src", '/static/Pack75bolas/bola' + ultimas5[3].fields.balota + '.png');
+	if( ultimas5.length > 4)
+		$("#ultima5").attr("src", '/static/Pack75bolas/bola' + ultimas5[4].fields.balota + '.png');
+
+   		
+});
+
+	document.getElementById("dni-panel").addEventListener("click", function(){
+		$.get('/partidas/75/cards-panel/{{partidanum}}/' + $('#dni-cliente').val() + '/',function(data){
+				document.getElementById('cards-panel').innerHTML = data;
+		});
+	});	
+
+
+	</script>
+</body>
+</html>
+

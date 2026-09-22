@@ -1,0 +1,397 @@
+ {% load static %}
+ {% load dashboards_tags %}
+ {% load thumbnail %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{config.titulo}}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap-reset.css' %}" rel="stylesheet">
+    <!--external css-->
+    <link href="{% static 'assets/font-awesome/css/font-awesome.css' %}" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap-datepicker/css/datepicker.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap-colorpicker/css/colorpicker.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap-daterangepicker/daterangepicker.css' %}" />
+    <!--right slidebar-->
+    <link href="{% static 'css/slidebars.css' %}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style-responsive.css' %}" rel="stylesheet" />
+    
+    {% block css %}
+        
+    {% endblock css %}
+        <style>
+            .validado{
+                width: 100%;
+                background-color: red;
+                color: white;
+                font-size: 1.5em;
+                text-align: center;
+                padding: 10px;
+            }
+  
+        </style>
+  </head>
+
+  <body>
+
+    {% if not user.userprofile.validado%}
+    <div class="validado">Tu email no esta validado <button id="validar">Enviar Validación</button></div>
+    {% endif %}
+    <script>
+        document.getElementById('validar').addEventListener('click',function(){
+        
+            $.get('/account/validar-email/{{user.pk}}/{{user.email}}/',function(data){
+
+                alert('Revise su email');
+                document.getElementById('validar').style.display = 'none';
+            });
+            
+        });
+
+    </script>    
+  <section id="container" class="" >
+      <!--header start-->
+      <header class="header white-bg">
+          <div class="sidebar-toggle-box">
+              <i class="fa fa-bars"></i>
+          </div>
+          <!--logo start-->
+          <a href="/" class="logo">
+              <img src="/media/{{config.logo_horizontal}}" width="120px">            
+          </a>
+          <!--logo end-->
+          <div class="nav notify-row" id="top_menu">
+              <!--  notification start -->
+              <ul class="nav top-menu">
+                  {% nav_inbox user %}
+                  {% nav_notifications user %}
+              </ul>
+              <!--  notification end -->
+          </div>
+          <div class="top-nav ">
+              <!--search & user info start-->
+              <ul class="nav pull-right top-menu">
+                  <li>
+                      <input type="text" class="form-control search" placeholder="Search">
+                  </li>
+                  <!-- user login dropdown start-->
+                  <li class="dropdown">
+                      <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                          {% thumbnail user.userprofile.thumb "30x30" crop="center" as im %}
+                                    <img src="{{ im.url }}" alt="{{user.get_full_name}}">
+                          {% endthumbnail %}                          
+                          <span class="username">{{user.get_full_name}}</span>
+                          <b class="caret"></b>
+                      </a>
+                      <ul class="dropdown-menu extended logout dropdown-menu-right">
+                          <div class="log-arrow-up"></div>
+                          <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
+                          <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+                          <li><a href="#"><i class="fa fa-bell-o"></i> Notification</a></li>
+                          <li><a href="/logout/"><i class="fa fa-key"></i> Log Out</a></li>
+                      </ul>
+                  </li>
+                  <li class="sb-toggle-right">
+                      <i class="fa  fa-align-right"></i>
+                  </li>
+                  <!-- user login dropdown end -->
+              </ul>
+              <!--search & user info end-->
+          </div>
+      </header>
+      <!--header end-->
+      
+      <!--sidebar start-->
+        {% menu user %}
+      <!--sidebar end-->
+      
+      <!--main content start-->
+      <section id="main-content" >
+          <section class="wrapper">
+              <!-- page start-->
+              {% block main %}
+              <div class="row state-overview">
+
+                {% if user.is_superuser %}
+                  <div class="col-lg-3 col-sm-6">
+                      <section class="card">
+                          <div class="symbol terques">
+                              <i class="fa fa-user"></i>
+                          </div>
+                          <div class="value">
+                              <h1 class="count">
+                                  {{solicitudes}}
+                              </h1>
+                              <p>Solicitudes</p>
+                          </div>
+                      </section>
+                  </div>
+               {% endif %}
+               </div>
+              <!--state overview start-->
+              <h4>Loteria Mexicana</h4>
+              <div class="row state-overview">
+                  <div class="col-lg-3 col-sm-6">
+                      <section class="card">
+                          <div class="symbol red">
+                              <i class="fa fa-tags" title="Cartones vendidos para la proxima partida"></i>
+                          </div>
+                          <div class="value">
+                              <h1 class=" count2">
+                                  {{vendidos}}
+                              </h1>
+                              <p>Vendidos</p>
+                          </div>
+                      </section>
+                  </div>
+                  <div class="col-lg-3 col-sm-6">
+                      <section class="card">
+                          <div class="symbol yellow">
+                              <i class="fa fa-table"></i>
+                          </div>
+                          <div class="value">
+                              <h1 class=" count3">
+                                  {{partida}}
+                              </h1>
+                              <p>Partida Nº</p>
+                          </div>
+                      </section>
+                  </div>
+                  <div class="col-lg-3 col-sm-6">
+                      <section class="card">
+                          <div class="symbol blue">
+                              <i class="fa fa-money"></i>
+                          </div>
+                          <div class="value">
+                              <h1 class=" count4">
+                                  {{acumulado}}
+                              </h1>
+                              <p>Acumulado</p>
+                          </div>
+                      </section>
+                  </div>
+                  {% if user.is_superuser %}
+
+                    {% for r in revendedores %}
+                        <div class="col-lg-3 col-sm-6">
+                        <section class="card">
+                            <div class="symbol red">
+                                <i class="fa fa-tags" title="{{r.user.userprofile.state}} {{r.user.userprofile.city}} {{r.user.userprofile.phone}}"></i>
+                            </div>
+                            <div class="value">
+                                <h1 class=" count2">
+                                    {{r.vendidos}}
+                                </h1>
+                                <p>{{r.user.username}}</p>
+                            </div>
+                        </section>
+                    </div>               
+                    {% endfor %}
+                {% endif %}
+
+
+              </div>
+              <!--state overview end-->
+               <!--state overview start-->
+              <h4>Bingo 75</h4>
+              <div class="row state-overview">
+                  <div class="col-lg-3 col-sm-6">
+                      <section class="card">
+                          <div class="symbol red">
+                              <i class="fa fa-tags" title="Cartones vendidos para la proxima partida"></i>
+                          </div>
+                          <div class="value">
+                              <h1 class=" count2">
+                                  {{vendidos75}}
+                              </h1>
+                              <p>Vendidos</p>
+                          </div>
+                      </section>
+                  </div>
+                  <div class="col-lg-3 col-sm-6">
+                      <section class="card">
+                          <div class="symbol yellow">
+                              <i class="fa fa-table"></i>
+                          </div>
+                          <div class="value">
+                              <h1 class=" count3">
+                                  {{partida75}}
+                              </h1>
+                              <p>Partida Nº</p>
+                          </div>
+                      </section>
+                  </div>
+                  <div class="col-lg-3 col-sm-6">
+                      <section class="card">
+                          <div class="symbol blue">
+                              <i class="fa fa-money"></i>
+                          </div>
+                          <div class="value">
+                              <h1 class=" count4">
+                                  {{acumulado75}}
+                              </h1>
+                              <p>Acumulado</p>
+                          </div>
+                      </section>
+                  </div>
+                  {% if user.is_superuser %}
+
+                    {% for r in revendedores75 %}
+                        <div class="col-lg-3 col-sm-6">
+                        <section class="card">
+                            <div class="symbol red">
+                                <i class="fa fa-tags" title="{{r.user.userprofile.state}} {{r.user.userprofile.city}} {{r.user.userprofile.phone}}"></i>
+                            </div>
+                            <div class="value">
+                                <h1 class=" count2">
+                                    {{r.vendidos}}
+                                </h1>
+                                <p>{{r.user.username}}</p>
+                            </div>
+                        </section>
+                    </div>               
+                    {% endfor %}
+                {% endif %}
+              </div>
+              <!--state overview end-->
+              {% ifequal user.userprofile.user_type "Usuario" %}
+                <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Loteria Mexicana</h4>
+                    {% partidasDia user %}
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Bingo 75</h4>
+                        {% partidasDia75 user %}
+                    </div>
+                </div>
+                </div>
+              {% endifequal %}                
+              {% endblock main %}
+              <!-- page end-->
+          </section>
+      </section>
+      <!--main content end-->
+
+  </section>
+<!--
+<style type="text/css">
+  
+  .wrap-modal{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,.3);
+    z-index: 5000;
+  }
+  .contenido-modal{
+    width: 600px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    margin-top:100px;
+    z-index: 5500;
+
+  }
+</style>
+
+<div class="wrap-modal">
+  
+  <div class="contenido-modal">
+    dsadsadasdsad
+  </div>
+
+</div>
+
+-->
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/jquery.scrollTo.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nicescroll.js' %}" type="text/javascript"></script>
+
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script class="include" type="text/javascript" src="{% static 'js/jquery.dcjqaccordion.2.7.js' %}"></script>
+
+  <!--custom switch-->
+  <script src="{% static 'js/bootstrap-switch.js' %}"></script>
+  <!--custom tagsinput-->
+  <script src="{% static 'js/jquery.tagsinput.js' %}"></script>
+  <!--custom checkbox & radio-->
+  <script type="text/javascript" src="{% static 'js/ga.js' %}"></script>
+
+  <script type="text/javascript" src="{% static 'assets/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
+  <script type="text/javascript" src="{% static 'assets/bootstrap-daterangepicker/date.js' %}"></script>
+  <script type="text/javascript" src="{% static 'assets/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
+  <script type="text/javascript" src="{% static 'assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js' %}"></script>
+  <script type="text/javascript" src="{% static 'assets/ckeditor/ckeditor.js' %}"></script>
+
+  <script type="text/javascript" src="{% static 'assets/bootstrap-inputmask/bootstrap-inputmask.min.js' %}"></script>
+  <script src="{% static 'js/respond.min.js' %}" ></script>
+
+  <!--right slidebar-->
+  <script src="{% static 'js/slidebars.min.js' %}"></script>
+
+
+  <!--common script for all pages-->
+  <script src="{% static 'js/common-scripts.js' %}"></script>
+
+  <!--script for this page-->
+  <script src="{% static 'js/form-component.js' %}"></script>
+ 
+  <script src="{% static 'assets/js/plugins/bootstrap-notify.js' %}"></script>
+
+<script type="text/javascript">
+  
+//WEBSOCKET
+    var loc = window.location;
+    var wsStart = "ws://";
+    if (loc.protocol == "https:"){
+        wsStart = "wss://";
+    }
+    var webSocketEndpoint =  wsStart + loc.host + '/notifications/';  // ws : wss   // Websocket URL, Same on as mentioned in the routing.py
+
+
+function notify_test(){
+  $.get("{% url 'tf' %}")
+}
+
+//nice scroll
+  $('#ul_messages').niceScroll({
+    cursorwidth: '0px',
+    cursorborder: "",
+    cursorcolor: "#b1babe",
+    boxzoom: false,
+    autohidemode: false,
+    cursorfixedheight: 140,
+    railhoffset: {top: 10, left: 0},
+  });  
+  $('#ul_notifications').niceScroll({
+    cursorwidth: '0px',
+    cursorborder: "",
+    cursorcolor: "#b1babe",
+    boxzoom: false,
+    autohidemode: false,
+    cursorfixedheight: 140,
+    railhoffset: {top: 10, left: 0},
+  });
+
+</script>
+<script type="text/javascript" src="{% static 'js/websocket/notifications.js' %}"></script>
+ {% block js %}
+   
+ {% endblock js %}
+  </body>
+</html>

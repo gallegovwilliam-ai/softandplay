@@ -1,0 +1,42 @@
+{% for p in partidasDia %}
+<div class="col-md-12">
+    <section class="card" style="padding: 10px;">
+        <div>
+            {% if not p.inicio %} 
+            <a class="btn btn-primary"
+            {% if p.inicio %} disabled {% endif %}
+            href="#" onclick='validaremaillink("bancos/75/comprar/{{p.pk}}/")'
+            ><i class="fa fa-shopping-cart fa-lg">&nbsp;/&nbsp;</i><i class="fa fa-play fa-lg"></i></a>
+            
+            {% else %}
+            <a class="btn btn-warning"
+            {% if not p.inicio %} disabled {% endif %}
+            href="#" onclick='validaremaillink("partidas/75/juego-en-linea/{{p.pk}}/")'
+            ><i class="fa fa-play fa-lg"></i></a>
+            {% endif %}
+        </div>
+        <div class="value">
+            <h4 class=" count2">
+                {{p.descripcion}}
+            </h4>
+            <p>Costo Tabla: <strong> ${{p.monto_carton}}</strong></p>
+        </div>
+    </section>
+</div>          
+{% empty %}     
+<h2>No hay partidas</h2>
+{% endfor%}
+
+<script>
+    function validaremaillink(url){
+
+      {% if not user.userprofile.validado %}
+          alert('Debe validar su email');
+          return false;
+      {% endif %}
+
+       window.location=url;
+       
+  
+    }
+</script>

@@ -1,0 +1,21 @@
+[Unit]
+Description=SoftAndPlay RQ worker
+After=network.target redis-server.service
+
+[Service]
+Type=simple
+User=softandplay
+Group=www-data
+WorkingDirectory=/opt/softandplay/app
+EnvironmentFile=/opt/softandplay/app/.env
+ExecStart=/opt/softandplay/env3/bin/python /opt/softandplay/app/manage.py rqworker default
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/opt/softandplay/app/media_files
+
+[Install]
+WantedBy=multi-user.target

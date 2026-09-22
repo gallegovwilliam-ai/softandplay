@@ -1,0 +1,102 @@
+{% extends 'dashboard.html' %}
+ {% load static %}
+ {% load humanize %}
+{% block css %}
+	  <!--dynamic table-->
+    <link href="{% static 'assets/advanced-datatable/media/css/demo_page.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/advanced-datatable/media/css/demo_table.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'assets/data-tables/DT_bootstrap.css' %}" />
+
+{% endblock css %}
+
+{% block main %}
+              <div class="row">
+                <div class="col-sm-12">
+              <section class="card">
+              <header class="card-header">
+                  Partidas 75 {{tag}} / <a  href="{% url 'crear-partida75' %}" class="btn btn-primary"><i class="fa fa-plus"></i> Crear</a>
+             <span class="tools pull-right">
+                <a href="javascript:;" class="fa fa-chevron-down"></a>
+                <a href="javascript:;" class="fa fa-times"></a>
+             </span>
+              </header>
+              <div class="card-body">
+              <div class="adv-table">
+              <table  class="display table table-bordered table-striped table-responsive" id="dynamic-table">
+              <thead>
+              <tr>
+                  <th>Id</th>
+                  <th>Fecha</th>
+                  <th>Partida</th>
+                  <th>Descripcion</th>
+                  <th>Monto Carton</th>
+                  <th>Acción</th>
+                  
+              </tr>
+              </thead>
+              <tbody>
+                {% for p in object_list  %}
+                  <tr>
+                  <td>{{ p.pk }}</td>
+                  <td>{{ p.fecha }}</td>
+                  <td>{{ p.partida }}</td>
+                  <td>{{ p.descripcion }}</td>
+                  <td>{{ p.monto_carton }}</td>
+                  <td class="td-actions text-right" width="120px">
+                      <a type="button" rel="tooltip" class="btn btn-info" href="{% url 'update-partida75' pk=p.id %}">
+                          <i class="fa fa-edit"></i>
+                      </a>
+                      <button type="button" rel="tooltip" class="btn btn-success"  onclick="deletePartida('{{p.id}}','{{p.id}}');">
+                          <i class="fa fa-trash-o"></i>
+                      </button>
+
+                  </td>
+                </tr>
+                  {% empty%}
+                  <tr>
+                    <td>No hay Registros</td> 
+                    <td>.</td>
+                    <td>.</td>
+                    <td>.</td>                   
+                    <td>.</td>
+                    <td>.</td>
+                  </tr>
+
+                {% endfor %}
+
+
+              </tbody>
+              </table>
+              </div>
+              </div>
+              </section>
+              </div>
+              </div>
+{% endblock %}
+
+{% block js %}
+	   <script type="text/javascript" language="javascript" src="{% static 'assets/advanced-datatable/media/js/jquery.dataTables.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/data-tables/DT_bootstrap.js' %}"></script>
+    <script src="{% static 'js/respond.min.js' %}" ></script>
+    <!--dynamic table initialization -->
+    <script src="{% static "js/dynamic_table_init.js" %}"></script>
+    <script>
+    function deletePartida(pk, name) {
+      
+      option = confirm("Estas seguro de eliminar la partida " + name);
+      if (option){
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = "{% url 'delete-partida75' 1234 %}".replace(/1234/, pk.toString());
+        var csrf = document.createElement('input');
+        csrf.type = 'hidden'; csrf.name = 'csrfmiddlewaretoken'; csrf.value = '{{ csrf_token }}';
+        form.appendChild(csrf); document.body.appendChild(form); form.submit();
+      }
+    }
+
+    $( document ).ready(function() {
+      console.log( "ready!" );
+      $('#dynamic-table_length').hide();
+    });
+  </script>
+{% endblock js %}

@@ -1,0 +1,329 @@
+{% load static %}
+{% load thumbnail %}
+<html>
+<head>
+<title>{{config.titulo}}</title>
+</head>
+<body>
+<style type="text/css">
+	* {
+	padding:0px;
+	margin:0px;
+	zoom:0.982;
+	}
+	
+	@media print {
+		@page {
+			margin:0px;
+			padding:0px;
+			-webkit-print-color-adjust:exact;
+			-moz-print-color-adjust:exact;
+			-o-print-color-adjust:exact;
+			print-color-adjust:exact;
+		}
+	}
+	
+	body {
+	background:rgba(227,227,227,1);
+	}	
+	
+	.pagina {
+	width:800px;
+	height:802px;
+	margin:0px auto;
+	background:#ffffff;
+	-webkit-box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+	-o-box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+	box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+	}
+</style>
+<div id="pagina" class="pagina">
+<style type="text/css">
+	
+	.carton-n {
+	-webkit-transform:rotateZ(90deg);
+	-moz-transform:rotateZ(90deg);
+	-o-transform:rotateZ(90deg);
+	transform:rotateZ(90deg);
+	margin-top:-120px !important;
+	margin:0px auto;zoom:0.93;
+	}
+
+	.carton-n2 {
+	-webkit-transform:rotateZ(90deg);
+	-moz-transform:rotateZ(90deg);
+	-o-transform:rotateZ(90deg);
+	transform:rotateZ(90deg);
+	margin-top:-75px !important;
+	margin:0px auto;zoom:0.93;
+	}
+
+	.carton-n2 {
+	margin:0px auto;
+	width:220px;
+	height:300px;
+	-webkit-background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	-o-background-size: 100% 100%;
+	background-size: 100% 100%;
+	}
+	
+	.texto-carton {
+	font: bold 14px 'Arial';
+	background:transparent;
+	color:#222222;
+	margin-top:7px;
+	text-align:center;
+	-webkit-text-shadow: 0px 0px 3px #ffffff;
+	-moz-text-shadow: 0px 0px 3px #ffffff;
+	-o-text-shadow: 0px 0px 3px #ffffff;
+	text-shadow: 0px 0px 3px #ffffff;
+	}
+	
+	.texto-carton2 {
+	font: bold 14px 'Arial';
+	background:transparent;
+	color:#222222;
+	margin-top:7px;
+	text-align:center;
+	-webkit-text-shadow: 0px 0px 3px #ffffff;
+	-moz-text-shadow: 0px 0px 3px #ffffff;
+	-o-text-shadow: 0px 0px 3px #ffffff;
+	text-shadow: 0px 0px 3px #ffffff;
+	}
+	
+	.logo-carton2 {
+	position:relative;
+	left:42.566666666666666666666666666667%;
+	top:-71.2%;
+	width:15%;
+	height:10.9%;
+	background:transparent;
+	overflow:hidden;
+	background-image:url('medida. 2.png');
+	-webkit-background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	-o-background-size: 100% 100%;
+	background-size: 100% 100%;
+	}
+	
+	.INFO-CARTON {
+	margin:0px auto;
+	background:rgb(247,245,252);
+	border:2px dotted rgb(195,195,195);
+	text-align:center;
+	font:bold 1.2em 'Arial';
+	color:rgb(127,127,127);
+	position:absolute;
+	left:0px;
+	top:-26px;
+	width:99%;
+	}
+	
+	.LOGO-INFO {
+	margin:0px auto;
+	background:transparent;
+	height:120px;
+	overflow:hidden;
+	}
+	
+	.LOGO-INFO-DIV {
+	margin:0px auto;
+	width:85%;
+	border-bottom:1px dotted rgb(195,195,195);
+	}
+	
+</style>
+<div class="LOGO-INFO">
+		<div class="LOGO-INFO-DIV">
+			<img src="/media/{{ config.logo_horizontal }}" style="width:341px"></img>
+			<div style="float:right;font:bold 1.5em 'Arial';">
+			<BR>
+			PARTIDA N°: {{ obj.0.propietario.partida.id }}<BR>
+			FECHA VENTA: {% now "d/m/Y" %}<br>
+			CLIENTE ID:  {{ obj.0.propietario.cliente.id }}		
+			</div>
+		</div>
+</div>
+<div style="text-align:center;margin-top:30px;">
+
+			<div class="carton-n2">
+				<div id="carton-n2" style="position:relative;left:0px;top:0px;width:100%;height:100%;text-align:left;">
+					<img id="CARTON" src="/media/{{ config.fondo_carton_lotoMX }}" style="position:absolute;left:0px;top:0px;width:100%;height:100%;"></img>
+					<div id="ct0" style="position: absolute; width: 15.3333%; height: 18.3333%; background: transparent; overflow: hidden; left: 17.6667%; top: 19.7619%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.0.carton.l1_1 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct1" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 34%; top: 19.7619%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.0.carton.l1_2 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct2" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 50.3333%; top: 19.7619%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.0.carton.l1_3 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct3" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 67%; top: 19.7619%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.0.carton.l1_4 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct4" style="position: absolute; width: 15.3333%; height: 18.3333%; background: transparent; overflow: hidden; left: 17.6667%; top: 38.5714%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.0.carton.l2_1 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct5" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 34%; top: 38.5714%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.0.carton.l2_2 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct6" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 50.3333%; top: 38.5714%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.0.carton.l2_3 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct7" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 67%; top: 38.5714%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.0.carton.l2_4 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct8" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 17.3333%; top: 57.381%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.0.carton.l3_1 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct9" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 34%; top: 57.381%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.0.carton.l3_2 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct10" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 50.3333%; top: 57.381%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.0.carton.l3_3 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct11" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 67%; top: 57.381%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.0.carton.l3_4 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct12" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 17.3333%; top: 76.4286%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.0.carton.l4_1 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct13" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 34%; top: 76.4286%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.0.carton.l4_2 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct14" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 50.3333%; top: 76.4286%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.0.carton.l4_3 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct15" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 67%; top: 76.4286%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.0.carton.l4_4 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div class="INFO-CARTON">
+						TABLA: {{obj.0.pk}} | FECHA:{{obj.0.propietario.partida.fecha|date:"d/m/y" }}
+					</div>
+				</div>
+			</div>
+		
+			<div class="carton-n2">
+				<div id="carton-n2" style="position:relative;left:0px;top:0px;width:100%;height:100%;text-align:left;">
+					<img id="CARTON" src="/media/{{ config.fondo_carton_lotoMX }}" style="position:absolute;left:0px;top:0px;width:100%;height:100%;"></img>
+					<div id="ct0" style="position: absolute; width: 15.3333%; height: 18.3333%; background: transparent; overflow: hidden; left: 17.6667%; top: 19.7619%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.1.carton.l1_1 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct1" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 34%; top: 19.7619%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.1.carton.l1_2 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct2" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 50.3333%; top: 19.7619%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.1.carton.l1_3 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct3" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 67%; top: 19.7619%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.1.carton.l1_4 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct4" style="position: absolute; width: 15.3333%; height: 18.3333%; background: transparent; overflow: hidden; left: 17.6667%; top: 38.5714%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.1.carton.l2_1 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct5" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 34%; top: 38.5714%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.1.carton.l2_2 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct6" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 50.3333%; top: 38.5714%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.1.carton.l2_3 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct7" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 67%; top: 38.5714%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.1.carton.l2_4 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct8" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 17.3333%; top: 57.381%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.1.carton.l3_1 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct9" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 34%; top: 57.381%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.1.carton.l3_2 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct10" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 50.3333%; top: 57.381%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.1.carton.l3_3 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct11" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 67%; top: 57.381%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.1.carton.l3_4 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct12" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 17.3333%; top: 76.4286%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.1.carton.l4_1 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct13" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 34%; top: 76.4286%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.1.carton.l4_2 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct14" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 50.3333%; top: 76.4286%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.1.carton.l4_3 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct15" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 67%; top: 76.4286%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.1.carton.l4_4 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div class="INFO-CARTON">
+						TABLA: {{obj.1.pk}} | FECHA:{{obj.1.propietario.partida.fecha|date:"d/m/y" }}
+					</div>
+				</div>
+			</div>
+
+			<div class="carton-n2">
+				<div id="carton-n2" style="position:relative;left:0px;top:0px;width:100%;height:100%;text-align:left;">
+					<img id="CARTON" src="/media/{{ config.fondo_carton_lotoMX }}" style="position:absolute;left:0px;top:0px;width:100%;height:100%;"></img>
+					<div id="ct0" style="position: absolute; width: 15.3333%; height: 18.3333%; background: transparent; overflow: hidden; left: 17.6667%; top: 19.7619%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.2.carton.l1_1 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct1" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 34%; top: 19.7619%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.2.carton.l1_2 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct2" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 50.3333%; top: 19.7619%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.2.carton.l1_3 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct3" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 67%; top: 19.7619%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.2.carton.l1_4 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct4" style="position: absolute; width: 15.3333%; height: 18.3333%; background: transparent; overflow: hidden; left: 17.6667%; top: 38.5714%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.2.carton.l2_1 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct5" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 34%; top: 38.5714%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.2.carton.l2_2 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct6" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 50.3333%; top: 38.5714%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.2.carton.l2_3 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct7" style="position: absolute; width: 15.6667%; height: 18.3333%; background: transparent; overflow: hidden; left: 67%; top: 38.5714%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.2.carton.l2_4 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct8" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 17.3333%; top: 57.381%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.2.carton.l3_1 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct9" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 34%; top: 57.381%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.2.carton.l3_2 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct10" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 50.3333%; top: 57.381%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.2.carton.l3_3 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct11" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 67%; top: 57.381%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.2.carton.l3_4 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct12" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 17.3333%; top: 76.4286%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.2.carton.l4_1 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct13" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 34%; top: 76.4286%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.2.carton.l4_2 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct14" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 50.3333%; top: 76.4286%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.2.carton.l4_3 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div id="ct15" style="position: absolute; width: 15.6667%; height: 18.5714%; background: transparent; overflow: hidden; left: 67%; top: 76.4286%;">
+						<img  src="{% static 'cards-masters/' %}{{ obj.2.carton.l4_4 }}.png" style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;">					
+					</div>
+					<div class="INFO-CARTON">
+						TABLA: {{obj.2.pk}} | FECHA:{{obj.2.propietario.partida.fecha|date:"d/m/y" }}
+					</div>
+				</div>
+			</div>
+			
+
+</div>
+</style>
+<script type="text/javascript">
+		window.print();
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{% extends 'dashboard.html' %}
+ {% load static %}
+
+{% block main %}
+    <div class="row">
+    	<div class="col-sm-12">
+    		<section class="card">
+            	<header class="card-header">
+                  	Crear Loteria Chance
+            	</header>
+              	<div class="card-body">
+              		<form action="{% url 'crear-chance' %}" enctype="multipart/form-data" method="POST">
+              			{% csrf_token %}
+              			{{ form.as_p }}
+              			<button type="submit" class="btn btn-primary">Crear</button>	
+              		</form>
+
+              	</div>
+          	</section>
+      	</div>
+  </div>
+
+{% endblock %}
+
+{% block js %}
+	
+{% endblock js %}

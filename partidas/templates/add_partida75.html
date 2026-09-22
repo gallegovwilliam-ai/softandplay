@@ -1,0 +1,37 @@
+{% extends 'dashboard.html' %}
+ {% load static %}
+ {% load humanize %}
+
+{% block main %}
+    <div class="row">
+    	<div class="col-sm-12">
+    		<section class="card">
+            	<header class="card-header">
+                  	Crear Partida 75
+            	</header>
+              	<div class="card-body">
+              		<form action="{% url 'crear-partida75' %}" method="POST">
+              			{% csrf_token %}
+              			{{ form.as_p }}
+              			<button type="submit" class="btn btn-primary">Crear</button>	
+              		</form>
+
+              	</div>
+          	</section>
+      	</div>
+  </div>
+
+{% endblock %}
+
+{% block js %}
+	<script type="text/javascript">
+
+
+
+
+
+$(document).on("input", ".numeric", function() {
+    this.value = this.value.replace(/\D/g,'');
+});
+  </script>
+{% endblock js %}

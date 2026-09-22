@@ -1,0 +1,9 @@
+{% load static %}
+<div style="width:450px;margin:auto;">
+<h1>SoftAndPlay</h1>
+<h3>Validación de correo electrónico</h3>
+<p>Hola {{ user.username }}, para validar tu correo electrónico haz clic en el siguiente enlace:</p>
+<p><a href="{{ validation_url }}">Validar correo electrónico</a></p>
+<p>Si no solicitaste esta validación, puedes ignorar este mensaje.</p>
+<p>Atentamente, el equipo de SoftAndPlay.</p>
+</div>

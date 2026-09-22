@@ -1,0 +1,153 @@
+{% load static %}
+{% load thumbnail %}
+
+<!DOCTYPE html>
+<html lang="es">
+<!-- Head -->
+
+<head>
+    <title>{{config.titulo}}</title>
+    <!-- Meta-Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <!-- //Meta-Tags -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}">
+    <!-- Index-Page-CSS -->
+    <link rel="stylesheet" href="{% static 'login/css/style.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'login/css/font-awesome.min.css' %}" type="text/css" media="all">
+      
+    <style>
+
+body {
+    font-family: 'Mukta', sans-serif;
+    background: url("/media/{{config.fondo_login_desktop}}") no-repeat center center fixed;    
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+	position: relative;
+    height: 100vh;
+}
+    </style>
+
+    
+{% block css %}
+
+{% endblock css %}
+</head>
+<!-- //Head -->
+<!-- Body -->
+<body>
+
+<section class="main" style="margin-top:-20px">
+  <div class="layer">
+    
+    <div class="bottom-grid">
+      <div class="logo">
+        <h1> <a href="/">{{config.titulo}}</a></h1>
+      </div>
+    </div>
+    <div class="content-w3ls">
+      <div class="text-center icon">
+        <img src="/media/{{config.logo}}" width="220px">
+      </div>
+      <div class="content-bottom">
+        
+        {% block main %}
+                   
+        <form id="form">
+          {%csrf_token%}
+          <div class="field-group">
+            <span class="fa fa-user" aria-hidden="true"></span>
+            <div class="wthree-field">
+              <input name="username" id="username" type="text" value="" placeholder="Username" required>
+            </div>
+          </div>          
+          <div class="field-group">
+            <span class="fa fa-lock" aria-hidden="true"></span>
+            <div class="wthree-field">
+              <input name="password" id="password" type="Password" placeholder="Password">
+            </div>
+          </div>                    
+          <div class="wthree-field">
+            <div id="error" style="text-align:center;color:#fff"></div>
+            <button type="submit" class="btn">Ingresar</button>
+          </div>
+          <ul class="list-login">
+            <li class="switch-agileits">
+              <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+                Dejar logueado
+              </label>
+            </li>
+            <li>
+              <a href="{% url 'password-reset' %}" class="text-right">Olvidaste algo?</a>
+            </li>
+            <li class="clearfix"></li>
+          </ul>
+          <ul class="list-login-bottom">
+            <li class="">
+              <a href="{% url 'register-form' %}" class="">crear cuenta</a>
+            </li>
+            <li class="">
+              <a href="#" class="text-right">FAQ?</a>
+            </li>
+            <li class="clearfix"></li>
+          </ul>
+        </form>
+        {% endblock main %}
+
+      </div>
+    </div>
+    <div class="bottom-grid1">
+      <div class="copyright">
+        <p>© 2019 multibingos.net. All rights reserved | Design by
+          <a href="http://developgraph.com">DevelopGraph</a>
+        </p>
+      </div>
+    </div>
+    </div>
+</section>
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+
+    
+    {% block js %}        
+
+<script type="text/javascript">
+  $('#form').submit(function(){
+          var formData = new FormData();
+          formData.append('username',$('#username').val());
+          formData.append('password',$('#password').val());
+          formData.append('csrfmiddlewaretoken', $("input[name='csrfmiddlewaretoken']").val());
+           $.ajax({
+                    type: "POST",
+                    url: "{% url 'login-form' %}",
+                    data: formData, // serializes the form's elements.
+                    enctype: 'multipart/form-data',         
+                    processData: false,  // tell jQuery not to process the data
+                    contentType: false,  // tell jQuery not to set contentType           
+                    success: function(data)
+                   {
+                   if(data=='passwordError'){
+                    $('#error').html("Usuario o Clave Incorrectos");
+                     }else if(data=='block'){
+                        $('#error').html("Usuario BLOQUEADO");
+                     }else{
+                        location.href='/';
+                     }
+                      
+                      
+                   }
+                 });
+  event.preventDefault();});
+</script>
+
+{% endblock js %}
+
+
+</body>
+<!-- //Body -->
+</html>

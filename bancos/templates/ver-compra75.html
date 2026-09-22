@@ -1,0 +1,72 @@
+{% extends 'dashboard.html' %}
+ {% load static %}
+ {% load humanize %}
+{% load thumbnail %}
+
+{% block css %}
+	  <!--dynamic table-->
+    <link href="{% static 'assets/advanced-datatable/media/css/demo_page.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/advanced-datatable/media/css/demo_table.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'assets/data-tables/DT_bootstrap.css' %}" />
+{% endblock css %}
+
+{% block main %}
+              <div class="row">
+                <div class="col-md-12">
+              <section class="card">
+              <header class="card-header">
+                  Compra Pendiente Bingo 75
+             <span class="tools pull-right">
+                <a href="javascript:;" class="fa fa-chevron-down"></a>
+                <a href="javascript:;" class="fa fa-times"></a>
+             </span>
+              </header>
+              <div class="card-body" style="box-sizing:border-box">
+                      
+                      <img src="/media/{{compra.file}}" width="320px">
+                    <br><br>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <h5>Usuario: {{ compra.user.username}}</h5>
+                        <h5>Nombre: {{ compra.user.get_full_name}}</h5>
+                      </div>                        
+                      <div class="col-sm-3">
+                        <h5>Banco: {{ compra.banco}}</h5>
+                        <h5>Referencia: {{ compra.referencia }}</h5>
+                      </div>    
+                      <div class="col-sm-3">
+                        <h5>Telefóno: {{ compra.user.userprofile.phone}}</h5>
+                        <h5>Email: {{ compra.user.email }}</h5>
+                      </div> 
+                      <div class="col-sm-3">
+                        <h5>Cartones: {{ compra.cantidad}}</h5>
+                        <h5>Costo Carton: {{ compra.partida.monto_carton }}</h5>
+                      </div>                                               
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <a class="btn btn-warning" href="{% url 'aprobar-compra75' pk=compra.pk %}">APROBAR</a>
+                        <a class="btn btn-primary" href="{% url 'compras75' %}">REGRESAR</a>
+                      </div>
+                    </div>    
+              </div>
+              </section>
+              </div>
+              </div>
+{% endblock %}
+
+{% block js %}
+	   <script type="text/javascript" language="javascript" src="{% static 'assets/advanced-datatable/media/js/jquery.dataTables.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/data-tables/DT_bootstrap.js' %}"></script>
+    <script src="{% static 'js/respond.min.js' %}" ></script>
+    <!--dynamic table initialization -->
+    <script src="{% static "js/dynamic_table_init.js" %}"></script>
+    <script>
+    function deleteUser(pk, name) {
+      alert(name);
+      option = confirm("Estas seguro de eliminar a " + name);
+      if (option){ window.location = "{% url 'user-delete' 1234 %}".replace(/1234/, pk.toString()); }
+    }
+  </script>
+{% endblock js %}
