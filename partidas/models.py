@@ -154,3 +154,34 @@ class Partida75(models.Model):
     def __str__(self):
         return  "Partida Bingo 75 #" + str(self.partida) + " / " + str(self.fecha) + " / " + self.descripcion
     monto_carton = models.DecimalField(max_digits=14, decimal_places=2, blank=True, default=0)
+class Meta:
+        ordering = ['id']
+        constraints = [
+            models.UniqueConstraint(fields=['fecha', 'partida'], name='uniq_partida75_fecha_num'),
+            models.CheckConstraint(check=models.Q(monto_1__gte=0), name='partida75_monto_1_nonnegative'),
+            models.CheckConstraint(check=models.Q(monto_2__gte=0), name='partida75_monto_2_nonnegative'),
+            models.CheckConstraint(check=models.Q(monto_3__gte=0), name='partida75_monto_3_nonnegative'),
+            models.CheckConstraint(check=models.Q(monto_4__gte=0), name='partida75_monto_4_nonnegative'),
+            models.CheckConstraint(check=models.Q(monto_5__gte=0), name='partida75_monto_5_nonnegative'),
+            models.CheckConstraint(check=models.Q(monto_6__gte=0), name='partida75_monto_6_nonnegative'),
+            models.CheckConstraint(check=models.Q(monto_7__gte=0), name='partida75_monto_7_nonnegative'),
+            models.CheckConstraint(check=models.Q(monto_8__gte=0), name='partida75_monto_8_nonnegative'),
+            models.CheckConstraint(check=models.Q(monto_9__gte=0), name='partida75_monto_9_nonnegative'),
+            models.CheckConstraint(check=models.Q(monto_10__gte=0), name='partida75_monto_10_nonnegative'),
+            models.CheckConstraint(check=models.Q(monto_carton__gte=0), name='partida75_monto_carton_nonnegative'),
+        ]
+
+
+class Jugada75(models.Model):
+    partida = models.ForeignKey(Partida75, on_delete=models.CASCADE)
+    balota = models.CharField(max_length=2, blank=True)
+    orden = models.CharField(max_length=2, blank=True)
+    created_at = models.DateTimeField(editable=False, blank=False, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.created_at = timezone.now()
+        return super(Jugada75, self).save(*args, **kwargs)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['partida', 'balota'], name='uniq_jugada75_partida_balota')]
