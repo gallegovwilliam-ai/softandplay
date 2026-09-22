@@ -154,7 +154,7 @@ class Partida75(models.Model):
     def __str__(self):
         return  "Partida Bingo 75 #" + str(self.partida) + " / " + str(self.fecha) + " / " + self.descripcion
     monto_carton = models.DecimalField(max_digits=14, decimal_places=2, blank=True, default=0)
- {class Meta:
+ class Meta:
         ordering = ['id']
         constraints = [
             models.UniqueConstraint(fields=['fecha', 'partida'], name='uniq_partida75_fecha_num')
