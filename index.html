@@ -1,0 +1,45 @@
+HTML<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo SoftAndPlay</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f0f4f8; padding: 20px; }
+        h1 { color: #2c3e50; }
+        .ball { width: 100px; height: 100px; background: #3498db; color: white; font-size: 48px; 
+                line-height: 100px; border-radius: 50%; margin: 20px auto; font-weight: bold; }
+        button { padding: 12px 24px; font-size: 18px; background: #2ecc71; color: white; border: none; 
+                 border-radius: 5px; cursor: pointer; margin: 5px; }
+        button:hover { background: #27ae60; }
+        .history { margin-top: 20px; font-size: 18px; color: #555; }
+    </style>
+</head>
+<body>
+    <h1>🎲 Bingo SoftAndPlay</h1>
+    <div class="ball" id="currentBall">-</div>
+    <button onclick="drawBall()">Sacar Balota</button>
+    <button onclick="resetBingo()" style="background: #e74c3c;">Reiniciar</button>
+    <div class="history">
+        <h3>Balotas jugadas:</h3>
+        <p id="historyList">Ninguna</p>
+    </div>
+
+    <script>
+        let drawn = [];
+        function drawBall() {
+            if (drawn.length >= 75) { alert("¡Ya se sacaron todas las balotas!"); return; }
+            let num;
+            do { num = Math.floor(Math.random() * 75) + 1; } while (drawn.includes(num));
+            drawn.push(num);
+            document.getElementById("currentBall").innerText = num;
+            document.getElementById("historyList").innerText = drawn.join(", ");
+        }
+        function resetBingo() {
+            drawn = [];
+            document.getElementById("currentBall").innerText = "-";
+            document.getElementById("historyList").innerText = "Ninguna";
+        }
+    </script>
+</body>
+</html>
