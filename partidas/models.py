@@ -154,4 +154,13 @@ class Partida75(models.Model):
     def __str__(self):
         return  "Partida Bingo 75 #" + str(self.partida) + " / " + str(self.fecha) + " / " + self.descripcion
     monto_carton = models.DecimalField(max_digits=14, decimal_places=2, blank=True, default=0)
- 
+ class Meta:
+        ordering = ['id']
+        constraints = [
+            models.UniqueConstraint(fields=['fecha', 'partida'], name='uniq_partida75_fecha_num')
+        ] + [
+            models.CheckConstraint(check=models.Q(**{f'{n}__gte': 0}), name=f'partida75_{n}_nonnegative') 
+            for n in ['monto_1','monto_2','monto_3','monto_4','monto_5','monto_6','monto_7','monto_8','monto_9','monto_10','monto_carton']
+        ] + [
+            models.CheckConstraint(check=models.Q(**{f'{n}__gte': 0}) & models.Q(**{f'{n}__lte': 100}), name=f'partida75_{n}_range') 
+            for n in ['porciento_1
